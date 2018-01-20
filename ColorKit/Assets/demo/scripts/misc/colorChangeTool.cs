@@ -45,7 +45,7 @@ public class colorChangeTool : MonoBehaviour {
     {
         slidersBeingSet = true;
 
-        float[] rgbFloat = Camera.main.GetComponent<colorFormatConversion>().color_to_array(colorToRep);
+        float[] rgbFloat = Camera.main.GetComponent<colorTypeConversion>().color_to_array(colorToRep);
 
         float[] rgb255 = Camera.main.GetComponent<colorFormatConversion>().colorFloat_to_color255(rgbFloat);
         float[] ryb255 = Camera.main.GetComponent<rgb2ryb_ryb2rgb>().rgb255_to_ryb255(rgb255);
@@ -162,7 +162,7 @@ public class colorChangeTool : MonoBehaviour {
     void newColor(float[] new_rgb255)
     {
         float[] new_rgbFloat = Camera.main.GetComponent<colorFormatConversion>().color255_to_colorFloat(new_rgb255);
-        Color newColor = Camera.main.GetComponent<colorFormatConversion>().array_to_color(new_rgbFloat);
+        Color newColor = Camera.main.GetComponent<colorTypeConversion>().array_to_color(new_rgbFloat);
         Camera.main.GetComponent<demo_colors>().colorDataList[attachedColorData].setColor(newColor);
     }
 }

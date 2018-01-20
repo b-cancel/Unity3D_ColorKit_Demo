@@ -106,7 +106,7 @@ public class mixtureRefs : MonoBehaviour {
     {
         colorSample.GetComponent<Image>().color = newColor;
 
-        float[] rgbFloat = Camera.main.GetComponent<colorFormatConversion>().color_to_array(newColor);
+        float[] rgbFloat = Camera.main.GetComponent<colorTypeConversion>().color_to_array(newColor);
         float[] rgb255 = Camera.main.GetComponent<colorFormatConversion>().colorFloat_to_color255(rgbFloat);
         float[] ryb255 = Camera.main.GetComponent<rgb2ryb_ryb2rgb>().rgb255_to_ryb255(rgb255);
         float[] cmyk255 = Camera.main.GetComponent<rgb2cmyk_cmyk2rgb>().rgb255_to_cmyk255(rgb255);
