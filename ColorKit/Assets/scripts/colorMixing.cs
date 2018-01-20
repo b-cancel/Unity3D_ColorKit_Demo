@@ -4,6 +4,80 @@ using UnityEngine;
 
 public class colorMixing : MonoBehaviour
 {
+    //-------------------------Color Mixing Helper-------------------------
+
+    public Color mixColors(colorSpace csToUse, mixingMethod mm, bool ignoreQuants, Color[] colors, float[] colorQuantities)
+    {
+        switch (csToUse)
+        {
+            case colorSpace.RGB:
+                return mixColors_inRGB_colorSpace(mm, colors, colorQuantities, ignoreQuants);
+            case colorSpace.RYB:
+                return mixColors_inRYB_colorSpace(mm, colors, colorQuantities, ignoreQuants);
+            default:
+                return mixColors_inCMYK_colorSpace(mm, colors, colorQuantities, ignoreQuants);
+        }
+    }
+
+    Color mixColors_inRGB_colorSpace(mixingMethod mm, Color[] colors, float[] colorQuantities, bool ignoreQuants)
+    {
+        List<float[]> passedColors = new List<float[]>();
+
+        for (int i = 0; i < colors.Length; i++)
+        {
+            float[] colorFloat_RGB = gameObject.GetComponent<colorTypeConversion>().color_to_array(colors[i]);
+            float[] color255_RGB = gameObject.GetComponent<colorFormatConversion>().colorFloat_to_color255(colorFloat_RGB);
+            passedColors.Add(color255_RGB);
+        }
+
+        float[] result255_RGB = gameObject.GetComponent<colorMixing>().mixColors(mm, passedColors, colorQuantities, ignoreQuants); //actual Color Mixing
+
+        float[] resultFloat_RGB = gameObject.GetComponent<colorFormatConversion>().color255_to_colorFloat(result255_RGB);
+
+        return gameObject.GetComponent<colorTypeConversion>().array_to_color(resultFloat_RGB);
+    }
+
+    Color mixColors_inRYB_colorSpace(mixingMethod mm, Color[] colors, float[] colorQuantities, bool ignoreQuants)
+    {
+        List<float[]> passedColors = new List<float[]>();
+
+        for (int i = 0; i < colors.Length; i++)
+        {
+            float[] colorFloat_RGB = gameObject.GetComponent<colorTypeConversion>().color_to_array(colors[i]);
+            float[] color255_RGB = gameObject.GetComponent<colorFormatConversion>().colorFloat_to_color255(colorFloat_RGB);
+            float[] color255_RYB = gameObject.GetComponent<rgb2ryb_ryb2rgb>().rgb255_to_ryb255(color255_RGB);
+            passedColors.Add(color255_RYB);
+        }
+
+        float[] result255_RYB = gameObject.GetComponent<colorMixing>().mixColors(mm, passedColors, colorQuantities, ignoreQuants); //actual Color Mixing
+        float[] result255_RGB = gameObject.GetComponent<rgb2ryb_ryb2rgb>().ryb255_to_rgb255(result255_RYB);
+        float[] resultFloat_RGB = gameObject.GetComponent<colorFormatConversion>().color255_to_colorFloat(result255_RGB);
+
+        return gameObject.GetComponent<colorTypeConversion>().array_to_color(resultFloat_RGB);
+    }
+
+    Color mixColors_inCMYK_colorSpace(mixingMethod mm, Color[] colors, float[] colorQuantities, bool ignoreQuants)
+    {
+        List<float[]> passedColors = new List<float[]>();
+
+        for (int i = 0; i < colors.Length; i++)
+        {
+            float[] colorFloat_RGB = gameObject.GetComponent<colorTypeConversion>().color_to_array(colors[i]);
+            float[] color255_RGB = gameObject.GetComponent<colorFormatConversion>().colorFloat_to_color255(colorFloat_RGB);
+            float[] color255_CMYK = gameObject.GetComponent<rgb2cmyk_cmyk2rgb>().rgb255_to_cmyk255(color255_RGB);
+            passedColors.Add(color255_CMYK);
+        }
+
+        float[] result255_CMYK = gameObject.GetComponent<colorMixing>().mixColors(mm, passedColors, colorQuantities, ignoreQuants); //actual Color Mixing
+        float[] result255_RGB = gameObject.GetComponent<rgb2cmyk_cmyk2rgb>().cmyk255_to_rgb255(result255_CMYK);
+        float[] resultFloat_RGB = gameObject.GetComponent<colorFormatConversion>().color255_to_colorFloat(result255_RGB);
+
+        return gameObject.GetComponent<colorTypeConversion>().array_to_color(resultFloat_RGB);
+    }
+
+    //-----BASE (in color mixing script)
+
+    //-------------------------Originally From Color Mixing-------------------------
 
     _4D_flawToAccept theFlawWeAccept;
 
@@ -433,6 +507,6 @@ public class colorMixing : MonoBehaviour
             ratio = color2Quant / (color1Quant + color2Quant);
         else
             ratio = .5f;
-        return Camera.main.GetComponent<otherColorOps>().colorLerp(color1, color2, ratio);
+        return Camera.main.GetComponent<colorLerping>().colorLerp(color1, color2, ratio);
     }
 }

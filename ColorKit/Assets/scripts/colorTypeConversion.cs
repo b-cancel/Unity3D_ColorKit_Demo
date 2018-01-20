@@ -33,9 +33,12 @@ public class colorTypeConversion : MonoBehaviour {
         return new Color(color.x, color.y, color.z);
     }
 
-    public Vector3 color_to_vector3(Color color)
+    public Vector3 array_to_vector3(float[] color)
     {
-        return new Vector3(color.r, color.g, color.b);
+        if (color.Length == 3)
+            return new Vector3(color[0], color[1], color[2]);
+        else
+            return Vector3.zero;
     }
 
     public Color array_to_color(float[] color)
@@ -46,12 +49,9 @@ public class colorTypeConversion : MonoBehaviour {
             return Color.black;
     }
 
-    public Vector3 array_to_vector3(float[] color)
+    public Vector3 color_to_vector3(Color color)
     {
-        if (color.Length == 3)
-            return new Vector3(color[0], color[1], color[2]);
-        else
-            return Vector3.zero;
+        return new Vector3(color.r, color.g, color.b);
     }
 
     public float[] color_to_array(Color color)
