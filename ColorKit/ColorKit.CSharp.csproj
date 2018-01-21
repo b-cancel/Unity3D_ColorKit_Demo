@@ -318,7 +318,10 @@
     <Compile Include="Assets\demo\scripts\Sections\mixtureSection\demo_mixtures.cs" />
     <Compile Include="Assets\demo\scripts\Sections\mixtureSection\mixtureData.cs" />
     <Compile Include="Assets\demo\scripts\Sections\mixtureSection\mixtureRefs.cs" />
+    <Compile Include="Assets\scripts\colorCompliments.cs" />
+    <Compile Include="Assets\scripts\colorDistances.cs" />
     <Compile Include="Assets\scripts\colorFormatConversion.cs" />
+    <Compile Include="Assets\scripts\colorLerping.cs" />
     <Compile Include="Assets\scripts\colorMixing.cs" />
     <Compile Include="Assets\scripts\colorTypeConversion.cs" />
     <Compile Include="Assets\scripts\otherColorOps.cs" />
