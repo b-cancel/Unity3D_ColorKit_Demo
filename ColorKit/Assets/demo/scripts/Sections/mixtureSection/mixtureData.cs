@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using colorKit;
 
 public class mixtureData
 {
@@ -34,7 +35,7 @@ public class mixtureData
         //unlock aim for
 
         //create a set the new mixture
-        Color newColor = Camera.main.GetComponent<otherColorOps>().mixColors(csUsed, mixAlgo, ignoreQuants, colorsToMix, quantsToMix);
+        Color newColor = (ignoreQuants) ? colorMixing.mixColors(csUsed, mixAlgo, colorsToMix) : colorMixing.mixColors(csUsed, mixAlgo, colorsToMix, quantsToMix);
         theGO.GetComponent<mixtureRefs>().updateColor(newColor);
     }
 

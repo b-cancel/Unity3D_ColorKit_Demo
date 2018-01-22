@@ -8,6 +8,9 @@ namespace colorKit
 
     public static class mixingMethods
     {
+        //IF (true) --> use Vector4.Distance()... ELSE (false) --> use some other approximation
+        static bool useVect4Dist = true;
+
         //-------------------------Originally From Color Mixing-------------------------
 
         //Ignore Quants == true
@@ -36,37 +39,22 @@ namespace colorKit
                 {
                     case mixingMethod.spaceAveraging:
                         if (ignoreQuants)
-                            return mixingMethod.spaceAveraging(colors);
+                            return spaceAveraging(colors);
                         else
-                            return mixingMethod.spaceAveraging(colors, colorQuantities);
+                            return spaceAveraging(colors, colorQuantities);
                     case mixingMethod.colorAveraging:
                         if (ignoreQuants)
-                        {
-                            if ((colors.Count == colorQuantities.Length))
-                                return colorAveraging(colors);
-                            else
-                                return new float[colors[0].Length];
-                        }
+                            return colorAveraging(colors);
                         else
                             return colorAveraging(colors, colorQuantities);
                     case mixingMethod.colorComponentAveraging:
                         if (ignoreQuants)
-                        {
-                            if ((colors.Count == colorQuantities.Length))
-                                return colorComponentAveraging(colors);
-                            else
-                                return new float[colors[0].Length];
-                        }
+                            return colorComponentAveraging(colors);
                         else
                             return colorComponentAveraging(colors, colorQuantities);
                     case mixingMethod.eachAsPercentOfMax:
                         if (ignoreQuants)
-                        {
-                            if ((colors.Count == colorQuantities.Length))
-                                return eachAsPercentOfMax(colors);
-                            else
-                                return new float[colors[0].Length];
-                        }
+                            return eachAsPercentOfMax(colors);
                         else
                             return eachAsPercentOfMax(colors, colorQuantities);
                     default:
@@ -157,7 +145,7 @@ namespace colorKit
             //We have 2 ways of determining 4D distance... BOTH FLAWED... so pick one a hope for the best...
             //even better... mix with 3D colors
 
-            if (_3DSpace || (theFlawWeAccept == _4D_flawToAccept.useWeirdVect4Dist))
+            if (_3DSpace || useVect4Dist)
             {
                 float[] color1 = colors[0];
                 float color1Quant = colorQuantities[0];
@@ -265,7 +253,7 @@ namespace colorKit
             //We have 2 ways of determining 4D distance... BOTH FLAWED... so pick one a hope for the best...
             //even better... mix with 3D colors
 
-            if (_3DSpace || (theFlawWeAccept == _4D_flawToAccept.useWeirdVect4Dist))
+            if (_3DSpace || useVect4Dist)
             {
                 //This sniplet is used IF we have 3D colors -OR- 4D colors where you are willing to use Unity's flawed vector 4 distance to approximate 4D space badly
 
@@ -385,23 +373,23 @@ namespace colorKit
             float[] newColor = new float[colors[0].Length];
 
             //get total of all the colors
-            for (int color = 0; color < colors.Count; color++)
+            for (int color = 0; color < colors.Count; color++) //loop through all the colors
             {
-                for (int component = 0; component < newColor.Length; component++)
+                for (int component = 0; component < newColor.Length; component++) //loop through all the components of this particular color
                 {
-                    if (((colors[color])[component] != 0) && (Mathf.Approximately(colorQuantities[color], 0) == false))
+                    if (ignoreQuants)
+                        newColor[component] += (colors[color])[component];
+                    else
                     {
-                        if (ignoreQuants)
-                            newColor[component] += (colors[color])[component]; //the undesired effect 2 would occur here
-                        else
+                        if (((colors[color])[component] != 0) && (Mathf.Approximately(colorQuantities[color], 0) == false))
                             newColor[component] += ((colors[color])[component] * colorQuantities[color]);
+                        //ELSE... comp = 0, quant = 0 (no effect) -or- comp = 0, quant != 0 (undesired effect 1) -or- comp != 0, quant = 0 (undesired effect 2)
                     }
-                    //ELSE... comp = 0, quant = 0 (no effect) -or- comp = 0, quant != 0 (undesired effect 1) -or- comp != 0, quant = 0 (undesired effect 2)
                 }
             }
 
             /*
-             * NOTE: total for each component can most definately go above 255... 
+             * NOTE: the total for each component can be above 255... 
              * another possible implementation is...
              * if the max component is below 255 the color is simply returned...
              * else the max component is now 255 regardless of what it actually was and the other components get reduced by the same factor

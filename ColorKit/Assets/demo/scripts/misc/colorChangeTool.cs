@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using colorKit;
 
 public class colorChangeTool : MonoBehaviour {
 
@@ -45,11 +46,11 @@ public class colorChangeTool : MonoBehaviour {
     {
         slidersBeingSet = true;
 
-        float[] rgbFloat = Camera.main.GetComponent<colorTypeConversion>().color_to_array(colorToRep);
+        float[] rgbFloat = colorTypeConversion.color_to_array(colorToRep);
 
-        float[] rgb255 = Camera.main.GetComponent<colorFormatConversion>().colorFloat_to_color255(rgbFloat);
-        float[] ryb255 = Camera.main.GetComponent<rgb2ryb_ryb2rgb>().rgb255_to_ryb255(rgb255);
-        float[] cmyk255 = Camera.main.GetComponent<rgb2cmyk_cmyk2rgb>().rgb255_to_cmyk255(rgb255);
+        float[] rgb255 = colorFormatConversion.colorFloat_to_color255(rgbFloat);
+        float[] ryb255 = rgb2ryb_ryb2rgb.rgb255_to_ryb255(rgb255);
+        float[] cmyk255 = rgb2cmyk_cmyk2rgb.rgb255_to_cmyk255(rgb255);
 
         if (Mathf.Approximately(sliderR_RGB.GetComponent<Slider>().value, rgb255[0]) == false)
             sliderR_RGB.GetComponent<Slider>().value = rgb255[0];
@@ -144,7 +145,7 @@ public class colorChangeTool : MonoBehaviour {
         if (slidersBeingSet == false)
         {
             float[] new_ryb255 = new float[] { sliderR_RYB.GetComponent<Slider>().value, sliderY_RYB.GetComponent<Slider>().value, sliderB_RYB.GetComponent<Slider>().value };
-            float[] new_rgb255 = Camera.main.GetComponent<rgb2ryb_ryb2rgb>().ryb255_to_rgb255(new_ryb255);
+            float[] new_rgb255 = rgb2ryb_ryb2rgb.ryb255_to_rgb255(new_ryb255);
             newColor(new_rgb255);
         }  
     }
@@ -154,15 +155,15 @@ public class colorChangeTool : MonoBehaviour {
         if (slidersBeingSet == false)
         {
             float[] new_cmyk255 = new float[] { sliderC_CMYK.GetComponent<Slider>().value, sliderM_CMYK.GetComponent<Slider>().value, sliderY_CMYK.GetComponent<Slider>().value, sliderK_CMYK.GetComponent<Slider>().value };
-            float[] new_rgb255 = Camera.main.GetComponent<rgb2cmyk_cmyk2rgb>().cmyk255_to_rgb255(new_cmyk255);
+            float[] new_rgb255 = rgb2cmyk_cmyk2rgb.cmyk255_to_rgb255(new_cmyk255);
             newColor(new_rgb255);
         }        
     }
 
     void newColor(float[] new_rgb255)
     {
-        float[] new_rgbFloat = Camera.main.GetComponent<colorFormatConversion>().color255_to_colorFloat(new_rgb255);
-        Color newColor = Camera.main.GetComponent<colorTypeConversion>().array_to_color(new_rgbFloat);
+        float[] new_rgbFloat = colorFormatConversion.color255_to_colorFloat(new_rgb255);
+        Color newColor = colorTypeConversion.array_to_color(new_rgbFloat);
         Camera.main.GetComponent<demo_colors>().colorDataList[attachedColorData].setColor(newColor);
     }
 }

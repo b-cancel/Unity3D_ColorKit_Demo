@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using colorKit;
 
 public class demo : MonoBehaviour {
 
@@ -29,8 +30,8 @@ public class demo : MonoBehaviour {
 
         //---starter colors list
 
-        gameObject.GetComponent<demo_colors>().addColor(Camera.main.GetComponent<colorTypeConversion>().array_to_color(Camera.main.GetComponent<colorFormatConversion>().color255_to_colorFloat(new float[] { 255, 0, 0 })), 1.25f);
-        gameObject.GetComponent<demo_colors>().addColor(Camera.main.GetComponent<colorTypeConversion>().array_to_color(Camera.main.GetComponent<colorFormatConversion>().color255_to_colorFloat(new float[] { 255, 255, 0 })), 1.25f);
+        gameObject.GetComponent<demo_colors>().addColor(colorTypeConversion.array_to_color(colorFormatConversion.color255_to_colorFloat(new float[] { 255, 0, 0 })), 1.25f);
+        gameObject.GetComponent<demo_colors>().addColor(colorTypeConversion.array_to_color(colorFormatConversion.color255_to_colorFloat(new float[] { 255, 255, 0 })), 1.25f);
 
         //---starter mixtures list
 

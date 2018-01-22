@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using colorKit;
 
 public class demo_lerping : MonoBehaviour
 {
@@ -194,7 +195,7 @@ public class demo_lerping : MonoBehaviour
 
         //-----RGB
 
-        float lerpValueRGB = Camera.main.GetComponent<otherColorOps>().calculateLerpValueGiven(
+        float lerpValueRGB = colorLerping.calculateLerpValueGiven(
             (largesteDistanceLerp) ? distanceUsedToCalculateLerpValue.distBetween_BlackAndWhite : distanceUsedToCalculateLerpValue.distBetween_StartAndEndColor,
             timeToLerpDistance,
             (timeTypeSecond) ? unitOftime.seconds : unitOftime.frames,
@@ -205,11 +206,11 @@ public class demo_lerping : MonoBehaviour
             currRGB_Color //diff
             );
 
-        currRGB_Color = Camera.main.GetComponent<otherColorOps>().colorLerp(colorSpace.RGB, currRGB_Color, endColor_RGB, lerpValueRGB);
+        currRGB_Color = colorLerping.colorLerp(colorSpace.RGB, currRGB_Color, endColor_RGB, lerpValueRGB);
 
         //-----RYB
 
-        float lerpValueRYB = Camera.main.GetComponent<otherColorOps>().calculateLerpValueGiven(
+        float lerpValueRYB = colorLerping.calculateLerpValueGiven(
             (largesteDistanceLerp) ? distanceUsedToCalculateLerpValue.distBetween_BlackAndWhite : distanceUsedToCalculateLerpValue.distBetween_StartAndEndColor,
             timeToLerpDistance,
             (timeTypeSecond) ? unitOftime.seconds : unitOftime.frames,
@@ -220,11 +221,11 @@ public class demo_lerping : MonoBehaviour
             currRYB_Color //diff
             );
 
-        currRYB_Color = Camera.main.GetComponent<otherColorOps>().colorLerp(colorSpace.RYB, currRYB_Color, endColor_RYB, lerpValueRYB);
+        currRYB_Color = colorLerping.colorLerp(colorSpace.RYB, currRYB_Color, endColor_RYB, lerpValueRYB);
 
         //-----CMYK
 
-        float lerpValueCMYK = Camera.main.GetComponent<otherColorOps>().calculateLerpValueGiven(
+        float lerpValueCMYK = colorLerping.calculateLerpValueGiven(
             (largesteDistanceLerp) ? distanceUsedToCalculateLerpValue.distBetween_BlackAndWhite : distanceUsedToCalculateLerpValue.distBetween_StartAndEndColor,
             timeToLerpDistance,
             (timeTypeSecond) ? unitOftime.seconds : unitOftime.frames,
@@ -235,7 +236,7 @@ public class demo_lerping : MonoBehaviour
             currCMYK_Color //diff
             );
 
-        currCMYK_Color = Camera.main.GetComponent<otherColorOps>().colorLerp(colorSpace.CMYK, currCMYK_Color, endColor_CMYK, lerpValueCMYK);
+        currCMYK_Color = colorLerping.colorLerp(colorSpace.CMYK, currCMYK_Color, endColor_CMYK, lerpValueCMYK);
 
         //----------Update The Colors Visually
 
@@ -318,9 +319,9 @@ public class demo_lerping : MonoBehaviour
             endColor_CMYK = endColor;
 
             //update the distance between colors in rgb and ryb
-            distanceBetweenColorsInRGB = Camera.main.GetComponent<otherColorOps>().distBetweenColors(colorSpace.RGB, startColor, endColor);
-            distanceBetweenColorsInRYB = Camera.main.GetComponent<otherColorOps>().distBetweenColors(colorSpace.RYB, startColor, endColor);
-            distanceBetweenColorsInCMYK = Camera.main.GetComponent<otherColorOps>().distBetweenColors(colorSpace.CMYK, startColor, endColor);
+            distanceBetweenColorsInRGB = colorDistances.distBetweenColors(colorSpace.RGB, startColor, endColor);
+            distanceBetweenColorsInRYB = colorDistances.distBetweenColors(colorSpace.RYB, startColor, endColor);
+            distanceBetweenColorsInCMYK = colorDistances.distBetweenColors(colorSpace.CMYK, startColor, endColor);
 
             distanceRGB_GO.GetComponent<InputField>().text = distanceBetweenColorsInRGB.ToString();
             distanceRYB_GO.GetComponent<InputField>().text = distanceBetweenColorsInRYB.ToString();
