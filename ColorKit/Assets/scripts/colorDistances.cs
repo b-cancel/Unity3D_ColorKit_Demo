@@ -32,7 +32,7 @@ namespace colorKit
             float[] color2_Float_rGb = colorTypeConversion.color_to_array(color2);
             float[] color2_255_rGb = colorFormatConversion.colorFloat_to_color255(color2_Float_rGb);
 
-            return distanceBetweenColors(color1_255_rGb, color2_255_rGb);
+            return distBetweenColors(color1_255_rGb, color2_255_rGb);
         }
 
         static float distBetweenColors_inRYB_colorSpace(Color color1, Color color2)
@@ -45,7 +45,7 @@ namespace colorKit
             float[] color2_255_rGb = colorFormatConversion.colorFloat_to_color255(color2_Float_rGb);
             float[] color2_255_rYb = rgb2ryb_ryb2rgb.rgb255_to_ryb255(color2_255_rGb);
 
-            return distanceBetweenColors(color1_255_rYb, color2_255_rYb);
+            return distBetweenColors(color1_255_rYb, color2_255_rYb);
         }
 
         //NOTE: be warned that this version of 4D distance is strange and does not behave the way I would personally except it to
@@ -59,7 +59,7 @@ namespace colorKit
             float[] color2_255_rGb = colorFormatConversion.colorFloat_to_color255(color2_Float_rGb);
             float[] color2_255_CMYK = rgb2cmyk_cmyk2rgb.rgb255_to_cmyk255(color2_255_rGb);
 
-            return distanceBetweenColors(color1_255_CMYK, color2_255_CMYK);
+            return distBetweenColors(color1_255_CMYK, color2_255_CMYK);
         }
 
         //-----BASE

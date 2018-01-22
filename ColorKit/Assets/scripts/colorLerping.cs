@@ -4,6 +4,8 @@ using UnityEngine;
 
 namespace colorKit
 {
+    //TODO... check function "calculateLerpValueGiven"... create a version of it for all types of lerping
+
     /// <summary>
     /// These functions are used to lerp between two colors by thinking of them as 2 points in 3 dimensional space. 
     /// All the Colors in the rGb and rYb color space now create a sort of color cube and we simply travel between two points on that cube.
@@ -16,12 +18,12 @@ namespace colorKit
     /// NOTE: I always lerp using the 255 version of the color because since the numbers are larger the errors make less of a difference
     /// </summary>
 
-    public class colorLerping : MonoBehaviour
+    public static class colorLerping
     {
 
         //-------------------------Color Lerping-------------------------
 
-        public Color colorLerp(colorSpace csToUse, Color start, Color end, float lerpValue) //value between 0 and 1
+        public static Color colorLerp(colorSpace csToUse, Color start, Color end, float lerpValue) //value between 0 and 1
         {
             switch (csToUse)
             {
@@ -34,7 +36,7 @@ namespace colorKit
             }
         }
 
-        Color colorLerp_inRGB_colorSpace(Color start, Color end, float lerpValue) //value between 0 and 1
+        static Color colorLerp_inRGB_colorSpace(Color start, Color end, float lerpValue) //value between 0 and 1
         {
             float[] startFloat_rGb = colorTypeConversion.color_to_array(start);
             float[] start255_rGb = colorFormatConversion.colorFloat_to_color255(startFloat_rGb);
@@ -48,7 +50,7 @@ namespace colorKit
             return colorTypeConversion.array_to_color(resultFloat);
         }
 
-        Color colorLerp_inRYB_colorSpace(Color start, Color end, float lerpValue) //value between 0 and 1
+        static Color colorLerp_inRYB_colorSpace(Color start, Color end, float lerpValue) //value between 0 and 1
         {
             float[] startFloat_rGb = colorTypeConversion.color_to_array(start);
             float[] start255_rGb = colorFormatConversion.colorFloat_to_color255(startFloat_rGb);
@@ -66,7 +68,7 @@ namespace colorKit
             return colorTypeConversion.array_to_color(resultFloat);
         }
 
-        Color colorLerp_inCMYK_colorSpace(Color start, Color end, float lerpValue) //value between 0 and 1
+        static Color colorLerp_inCMYK_colorSpace(Color start, Color end, float lerpValue) //value between 0 and 1
         {
             float[] startFloat_rGb = colorTypeConversion.color_to_array(start);
             float[] start255_rGb = colorFormatConversion.colorFloat_to_color255(startFloat_rGb);
@@ -86,7 +88,7 @@ namespace colorKit
 
         //-----BASE
 
-        public float[] colorLerp(float[] start, float[] end, float lerpValue)
+        public static float[] colorLerp(float[] start, float[] end, float lerpValue) //value between 0 and 1
         {
             if (start.Length == end.Length)
             {
@@ -119,29 +121,10 @@ namespace colorKit
 
         //-------------------------Color Lerping Helpers------------------------- 
 
-        //-----MAX Color Distances
-
-        public float maxDistanceInRGBColorSpace { get; private set; }
-        public float maxDistanceInRYBColorSpace { get; private set; }
-        public float maxDistanceInCMYKColorSpace { get; private set; } //once again becaue of the nature of 4D space this will work strangely...
-
-        void Awake()
-        {
-            float[] rgb1_255 = new float[] { 0, 0, 0 };
-            float[] rgb2_255 = new float[] { 255, 255, 255 };
-            maxDistanceInRGBColorSpace = colorDistances.distBetweenColors(rgb1_255, rgb2_255);
-
-            float[] ryb1_255 = rgb2ryb_ryb2rgb.rgb255_to_ryb255(rgb1_255);
-            float[] ryb2_255 = rgb2ryb_ryb2rgb.rgb255_to_ryb255(rgb2_255);
-            maxDistanceInRYBColorSpace = colorDistances.distBetweenColors(ryb1_255, ryb2_255);
-
-            float[] cmyk1_255 = rgb2cmyk_cmyk2rgb.rgb255_to_cmyk255(rgb1_255);
-            float[] cmyk2_255 = rgb2cmyk_cmyk2rgb.rgb255_to_cmyk255(rgb2_255);
-            maxDistanceInCMYKColorSpace = colorDistances.distBetweenColors(cmyk1_255, cmyk2_255);
-        }
+        //-----MAX Color Distances (distance between black and white in that particular color space) [assuming all components of the color are in 255 format]
 
         //This should be used to calculate the lerpValue For "Color.Lerp(currColor, endColor, lerpValueCalculatedByThisFunction)"
-        public float calculateLerpValueGiven(
+        public static float calculateLerpValueGiven(
             distanceUsedToCalculateLerpValue guideDistance, //if given MAX DIST -> convert to -> this dist
             float timeToTravel_GuideDistance, //units are below
             unitOftime UnitOfTime_forTimeToTravelGuideDistance, //if given SECONDS -> convert to -> frames
@@ -174,17 +157,17 @@ namespace colorKit
             switch (LCS)
             {
                 case colorSpace.RGB:
-                    dist_B_2_W = maxDistanceInRGBColorSpace;
+                    dist_B_2_W = 441.672956f; // maxDistanceInRGBColorSpace
                     dist_S_2_E = colorDistances.distBetweenColors(colorSpace.RGB, startColor, endColor);
                     dist_C_2_E = colorDistances.distBetweenColors(colorSpace.RGB, currColor, endColor);
                     break;
                 case colorSpace.RYB:
-                    dist_B_2_W = maxDistanceInRYBColorSpace;
+                    dist_B_2_W = 441.672956f; //maxDistanceInRYBColorSpace
                     dist_S_2_E = colorDistances.distBetweenColors(colorSpace.RYB, startColor, endColor);
                     dist_C_2_E = colorDistances.distBetweenColors(colorSpace.RYB, currColor, endColor);
                     break;
                 case colorSpace.CMYK:
-                    dist_B_2_W = maxDistanceInCMYKColorSpace;
+                    dist_B_2_W = 255; //maxDistanceInCMYKColorSpace (because we have no accurate representation for 4D distance)
                     dist_S_2_E = colorDistances.distBetweenColors(colorSpace.CMYK, startColor, endColor);
                     dist_C_2_E = colorDistances.distBetweenColors(colorSpace.CMYK, currColor, endColor);
                     break;
@@ -215,9 +198,10 @@ namespace colorKit
                     break;
             }
 
-            framesToFinsih_B_2_W = (int)Mathf.CeilToInt(framesToFinsih_B_2_W); //NOTE: I was previously using FloorToInt()... using Ceil is untested
-            framesToFinsih_S_2_E = (int)Mathf.CeilToInt(framesToFinsih_S_2_E); //NOTE: I was previously using FloorToInt()... using Ceil is untested
-            framesToFinsih_C_2_E = (int)Mathf.CeilToInt(framesToFinsih_C_2_E); //NOTE: I was previously using FloorToInt()... using Ceil is untested
+            //NOTE: I was previously using FloorToInt()... using Ceil is untested
+            framesToFinsih_B_2_W = (int)Mathf.CeilToInt(framesToFinsih_B_2_W); 
+            framesToFinsih_S_2_E = (int)Mathf.CeilToInt(framesToFinsih_S_2_E);
+            framesToFinsih_C_2_E = (int)Mathf.CeilToInt(framesToFinsih_C_2_E);
 
             //NOTE: as of now we know how many frames every distance will take... so now we use said data to lerp
 
