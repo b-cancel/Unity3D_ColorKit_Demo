@@ -10,10 +10,9 @@ namespace colorKit
     public enum updateLocation { fixedUpdate, Update };
 
     public enum distanceUsedToCalculateLerpValue { distBetween_BlackAndWhite, distBetween_StartAndEndColor, distBetween_CurrentAndEndColor };
-    public enum unitOftime { frames, seconds };
+    public enum unitOfTime { frames, seconds };
 
     public enum mixingMethod { spaceAveraging, colorAveraging, colorComponentAveraging, eachAsPercentOfMax }
-    public enum _4D_flawToAccept { useFlawedAglo, useWeirdVect4Dist };
 
     public static class otherColorOps
     {

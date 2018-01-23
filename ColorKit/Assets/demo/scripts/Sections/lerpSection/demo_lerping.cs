@@ -41,7 +41,7 @@ public class demo_lerping : MonoBehaviour
     bool lerping;
 
     bool fixedUpdateLerp;
-    bool largesteDistanceLerp;
+    bool largestDistanceLerp;
     float timeToLerpDistance;
     bool timeTypeSecond;
 
@@ -79,7 +79,7 @@ public class demo_lerping : MonoBehaviour
         lerping = false;
 
         fixedUpdateLerp = true;
-        largesteDistanceLerp = true;
+        largestDistanceLerp = true;
         timeToLerpDistance = 10;
         setting3.GetComponent<InputField>().text = timeToLerpDistance.ToString();
         timeTypeSecond = true;
@@ -108,9 +108,9 @@ public class demo_lerping : MonoBehaviour
     void onDistEdit(int i)
     {
         if (i == 0)
-            largesteDistanceLerp = true;
+            largestDistanceLerp = true;
         else
-            largesteDistanceLerp = false;
+            largestDistanceLerp = false;
         updateLerpingOptions();
     }
 
@@ -196,9 +196,9 @@ public class demo_lerping : MonoBehaviour
         //-----RGB
 
         float lerpValueRGB = colorLerping.calculateLerpValueGiven(
-            (largesteDistanceLerp) ? distanceUsedToCalculateLerpValue.distBetween_BlackAndWhite : distanceUsedToCalculateLerpValue.distBetween_StartAndEndColor,
+            (largestDistanceLerp) ? distanceUsedToCalculateLerpValue.distBetween_BlackAndWhite : distanceUsedToCalculateLerpValue.distBetween_StartAndEndColor,
             timeToLerpDistance,
-            (timeTypeSecond) ? unitOftime.seconds : unitOftime.frames,
+            (timeTypeSecond) ? unitOfTime.seconds : unitOfTime.frames,
             (fixedUpdateLerp) ? updateLocation.fixedUpdate : updateLocation.Update,
             colorSpace.RGB, //diff
             startColor_RGB, //diff
@@ -211,9 +211,9 @@ public class demo_lerping : MonoBehaviour
         //-----RYB
 
         float lerpValueRYB = colorLerping.calculateLerpValueGiven(
-            (largesteDistanceLerp) ? distanceUsedToCalculateLerpValue.distBetween_BlackAndWhite : distanceUsedToCalculateLerpValue.distBetween_StartAndEndColor,
+            (largestDistanceLerp) ? distanceUsedToCalculateLerpValue.distBetween_BlackAndWhite : distanceUsedToCalculateLerpValue.distBetween_StartAndEndColor,
             timeToLerpDistance,
-            (timeTypeSecond) ? unitOftime.seconds : unitOftime.frames,
+            (timeTypeSecond) ? unitOfTime.seconds : unitOfTime.frames,
             (fixedUpdateLerp) ? updateLocation.fixedUpdate : updateLocation.Update,
             colorSpace.RYB, //diff
             startColor_RYB, //diff
@@ -226,9 +226,9 @@ public class demo_lerping : MonoBehaviour
         //-----CMYK
 
         float lerpValueCMYK = colorLerping.calculateLerpValueGiven(
-            (largesteDistanceLerp) ? distanceUsedToCalculateLerpValue.distBetween_BlackAndWhite : distanceUsedToCalculateLerpValue.distBetween_StartAndEndColor,
+            (largestDistanceLerp) ? distanceUsedToCalculateLerpValue.distBetween_BlackAndWhite : distanceUsedToCalculateLerpValue.distBetween_StartAndEndColor,
             timeToLerpDistance,
-            (timeTypeSecond) ? unitOftime.seconds : unitOftime.frames,
+            (timeTypeSecond) ? unitOfTime.seconds : unitOfTime.frames,
             (fixedUpdateLerp) ? updateLocation.fixedUpdate : updateLocation.Update,
             colorSpace.CMYK, //diff
             startColor_CMYK, //diff

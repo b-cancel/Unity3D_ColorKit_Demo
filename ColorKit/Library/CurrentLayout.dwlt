@@ -14,13 +14,13 @@ MonoBehaviour:
   m_PixelRect:
     serializedVersion: 2
     x: 0
-    y: 43
+    y: 1123
     width: 1536
     height: 781
   m_ShowMode: 4
   m_Title: 
   m_RootView: {fileID: 2}
-  m_MinSize: {x: 950, y: 471}
+  m_MinSize: {x: 950, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &2
 MonoBehaviour:
@@ -105,10 +105,10 @@ MonoBehaviour:
     y: 30
     width: 1536
     height: 731
-  m_MinSize: {x: 583, y: 421}
-  m_MaxSize: {x: 12008, y: 8042}
+  m_MinSize: {x: 581, y: 421}
+  m_MaxSize: {x: 12006, y: 8042}
   vertical: 1
-  controlID: 141
+  controlID: 95
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -129,10 +129,10 @@ MonoBehaviour:
     y: 0
     width: 1536
     height: 731
-  m_MinSize: {x: 583, y: 421}
-  m_MaxSize: {x: 12008, y: 8042}
+  m_MinSize: {x: 581, y: 421}
+  m_MaxSize: {x: 12006, y: 8042}
   vertical: 0
-  controlID: 142
+  controlID: 96
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -156,7 +156,7 @@ MonoBehaviour:
   m_MinSize: {x: 306, y: 421}
   m_MaxSize: {x: 8006, y: 8042}
   vertical: 1
-  controlID: 50
+  controlID: 97
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -324,8 +324,8 @@ MonoBehaviour:
     y: 0
     width: 427
     height: 731
-  m_MinSize: {x: 277, y: 71}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 20}
   m_Panes:
   - {fileID: 20}
@@ -354,7 +354,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 616
-    y: 92
+    y: 1172
     width: 491
     height: 433
   m_PersistentViewDataDictionary: {fileID: 0}
@@ -431,7 +431,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 92
+    y: 1172
     width: 612
     height: 433
   m_PersistentViewDataDictionary: {fileID: 0}
@@ -508,15 +508,15 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 546
+    y: 1626
     width: 202
     height: 256
   m_PersistentViewDataDictionary: {fileID: 0}
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 78080000
+    m_SelectedIDs: 56070000
     m_LastClickedID: 0
-    m_ExpandedIDs: 7efbffff00000000
+    m_ExpandedIDs: 96fbffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -562,7 +562,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 206
-    y: 546
+    y: 1626
     width: 901
     height: 256
   m_PersistentViewDataDictionary: {fileID: 0}
@@ -578,19 +578,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/demo/scripts/Sections/mixtureSection
+    - Assets/scripts
   m_ViewMode: 1
   m_StartGridSize: 70
   m_LastFolders:
-  - Assets/demo/scripts/Sections/mixtureSection
+  - Assets/scripts
   m_LastFoldersGridSize: 70
   m_LastProjectPath: D:\GitHub\Unity3D_ColorKit\ColorKit
   m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 81}
-    m_SelectedIDs: 6a2a0000
-    m_LastClickedID: 10858
-    m_ExpandedIDs: 000000009c290000b0290000c2290000082a00004a2a0000602a000000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 85}
+    m_SelectedIDs: d6290000
+    m_LastClickedID: 10710
+    m_ExpandedIDs: 00000000a0290000b4290000c62900000c2a00004e2a0000642a000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -618,7 +618,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000009c290000b0290000c2290000082a00004a2a0000602a0000
+    m_ExpandedIDs: 00000000a0290000b4290000c62900000c2a00004e2a0000642a0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -643,8 +643,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 78080000
-    m_LastClickedInstanceID: 2168
+    m_SelectedInstanceIDs: 56070000
+    m_LastClickedInstanceID: 1878
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: 0a050000be1c0000de1b0000ea040000dc1c00007611feffbc240000c6230000d8230000d0230000dc230000f8230000e22300003c240000ae2400008e240000122a00003a250000f6230000262400000c240000f42300000a240000fa23000068240000b224000062240000782400004e24000064240000c0310000b036000000000000
     m_RenameOverlay:
@@ -696,7 +696,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 206
-    y: 546
+    y: 1626
     width: 901
     height: 256
   m_PersistentViewDataDictionary: {fileID: 0}
@@ -723,7 +723,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 1111
-    y: 92
+    y: 1172
     width: 425
     height: 710
   m_PersistentViewDataDictionary: {fileID: 0}
