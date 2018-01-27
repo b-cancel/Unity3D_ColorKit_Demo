@@ -11,43 +11,43 @@ namespace colorKit
 
         //-----2 component ??? (Vector2 | Array)
 
-        public static float[] vector2_to_array(Vector2 color)
+        public static float[] vector2_to_array(Vector2 vector2)
         {
-            return new float[] { color[0], color[1] };
+            return new float[] { vector2[0], vector2[1] };
         }
 
-        public static Vector2 array_to_vector2(float[] color)
+        public static Vector2 array_to_vector2(float[] array)
         {
-            if (color.Length == 2)
-                return new Vector2(color[0], color[1]);
+            if (array.Length == 2)
+                return new Vector2(array[0], array[1]);
             else
                 return Vector2.zero;
         }
 
         //-----3 Component Color (Vector3 | Array | Color)
 
-        public static float[] vector3_to_array(Vector3 color)
+        public static float[] vector3_to_array(Vector3 vector3)
         {
-            return new float[] { color[0], color[1], color[2] };
+            return new float[] { vector3[0], vector3[1], vector3[2] };
         }
 
-        public static Color vector3_to_color(Vector3 color)
+        public static Color vector3_to_color(Vector3 vector3)
         {
-            return new Color(color.x, color.y, color.z);
+            return new Color(vector3.x, vector3.y, vector3.z);
         }
 
-        public static Vector3 array_to_vector3(float[] color)
+        public static Vector3 array_to_vector3(float[] array)
         {
-            if (color.Length == 3)
-                return new Vector3(color[0], color[1], color[2]);
+            if (array.Length == 3)
+                return new Vector3(array[0], array[1], array[2]);
             else
                 return Vector3.zero;
         }
 
-        public static Color array_to_color(float[] color)
+        public static Color array_to_color(float[] array)
         {
-            if (color.Length == 3)
-                return new Color(color[0], color[1], color[2]);
+            if (array.Length == 3)
+                return new Color(array[0], array[1], array[2]);
             else
                 return Color.black;
         }
@@ -64,15 +64,15 @@ namespace colorKit
 
         //-----4 Component Color (Vector4 | Array)
 
-        public static float[] vector4_to_array(Vector4 color)
+        public static float[] vector4_to_array(Vector4 vector4)
         {
-            return new float[] { color[0], color[1], color[2], color[3] };
+            return new float[] { vector4[0], vector4[1], vector4[2], vector4[3] };
         }
 
-        public static Vector4 array_to_vector4(float[] color)
+        public static Vector4 array_to_vector4(float[] array)
         {
-            if (color.Length == 4)
-                return new Vector4(color[0], color[1], color[2], color[3]);
+            if (array.Length == 4)
+                return new Vector4(array[0], array[1], array[2], array[3]);
             else
                 return Vector4.zero;
         }

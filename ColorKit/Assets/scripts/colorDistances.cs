@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace colorKit
@@ -21,7 +20,7 @@ namespace colorKit
                     return distBetweenColors_inRYB_colorSpace(color1, color2);
                 default:
                     return distBetweenColors_inCMYK_colorSpace(color1, color2);
-            }
+            } 
         }
 
         static float distBetweenColors_inRGB_colorSpace(Color color1, Color color2)

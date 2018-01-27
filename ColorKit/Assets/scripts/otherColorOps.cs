@@ -21,62 +21,62 @@ namespace colorKit
 
         //---4 component
 
-        public static void printVector4(Vector4 vect)
+        public static void printVector4(Vector4 vect4)
         {
-            printVector4("", vect);
+            printVector4("", vect4);
         }
 
-        public static void printVector4(string printLabel, Vector4 vect)
+        public static void printVector4(string printLabel, Vector4 vect4)
         {
-            printArray(printLabel, colorTypeConversion.vector4_to_array(vect));
+            printArray(printLabel, colorTypeConversion.vector4_to_array(vect4));
         }
 
         //---3 component
 
-        public static void printVector3(Vector3 vect)
+        public static void printVector3(Vector3 vect3)
         {
-            printVector3("", vect);
+            printVector3("", vect3);
         }
 
-        public static void printVector3(string printLabel, Vector3 vect)
+        public static void printVector3(string printLabel, Vector3 vect3)
         {
-            printArray(printLabel, colorTypeConversion.vector3_to_array(vect));
+            printArray(printLabel, colorTypeConversion.vector3_to_array(vect3));
         }
 
-        public static void printColor(Color col)
+        public static void printColor(Color color)
         {
-            printColor("", col);
+            printColor("", color);
         }
 
-        public static void printColor(string printLabel, Color col)
+        public static void printColor(string printLabel, Color color)
         {
-            printArray(printLabel, colorTypeConversion.color_to_array(col));
+            printArray(printLabel, colorTypeConversion.color_to_array(color));
         }
 
         //---2 component
 
-        public static void printVector2(Vector2 vect)
+        public static void printVector2(Vector2 vect2)
         {
-            printVector2("", vect);
+            printVector2("", vect2);
         }
 
-        public static void printVector2(string printLabel, Vector2 vect)
+        public static void printVector2(string printLabel, Vector2 vect2)
         {
-            printArray(printLabel, colorTypeConversion.vector2_to_array(vect));
+            printArray(printLabel, colorTypeConversion.vector2_to_array(vect2));
         }
 
         //-----BASE
 
-        public static void printArray(string printLabel, float[] arr)
+        public static void printArray(string printLabel, float[] array)
         {
             string text = printLabel + " ";
 
-            for (int i = 0; i < arr.Length; i++)
+            for (int i = 0; i < array.Length; i++)
             {
-                if (i != (arr.Length - 1))
-                    text += arr[i] + ", ";
+                if (i != (array.Length - 1))
+                    text += array[i] + ", ";
                 else
-                    text += arr[i];
+                    text += array[i];
             }
 
             UnityEngine.MonoBehaviour.print(text);
@@ -84,25 +84,25 @@ namespace colorKit
 
         //-------------------------Error Correction-------------------------
 
-        public static float[] nanCheck(float[] arr)
+        public static float[] nanCheck(float[] array)
         {
-            for (int i = 0; i < arr.Length; i++)
+            for (int i = 0; i < array.Length; i++)
             {
-                arr[i] = 0;
-                if (float.IsNaN(arr[i]))
+                array[i] = 0;
+                if (float.IsNaN(array[i]))
                     UnityEngine.MonoBehaviour.print("is NAN");
-                else if (float.IsInfinity(arr[i]))
+                else if (float.IsInfinity(array[i]))
                     UnityEngine.MonoBehaviour.print("is Inf or Neg Inf");
             }
 
-            return arr;
+            return array;
         }
 
-        public static float[] clamp(float[] values, float min, float max)
+        public static float[] clamp(float[] array, float min, float max)
         {
-            for (int i = 0; i < values.Length; i++)
-                values[i] = Mathf.Clamp(values[i], min, max);
-            return values;
+            for (int i = 0; i < array.Length; i++)
+                array[i] = Mathf.Clamp(array[i], min, max);
+            return array;
         }
     }
 }

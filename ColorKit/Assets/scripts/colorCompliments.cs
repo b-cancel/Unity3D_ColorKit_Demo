@@ -1,12 +1,10 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace colorKit
 {
     public static class colorCompliments
     {
-
         public static Color complimentary(colorSpace csToUse, Color origColor)
         {
             switch (csToUse)
