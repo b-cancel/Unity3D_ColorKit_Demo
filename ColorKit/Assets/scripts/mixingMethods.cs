@@ -83,31 +83,34 @@ namespace colorKit
         }
 
         //Ignore Quants == false
-        static float[] spaceAveraging(List<float[]> colors, float[] colorQuantities)
+        static float[] spaceAveraging(List<float[]> colors, float[] colorQuants)
         {
-            return spaceAveraging(colors, colorQuantities, false);
+            return spaceAveraging(colors, colorQuants, false);
         }
 
         //BASE CODE [CHECKED]
         static float[] spaceAveraging(List<float[]> colors, float[] colorQuants, bool ignoreQuants)
         {
-            //NOTE: this algorithm is based on space averaging at a CORE so we don't have multiple ways to determine distance
-            //(in reference to color component averaging -AND- color averaging 4D options)... so we just stick to Unity's weird 4D distance
+            //NOTE: this algorithm is based on space averaging at a CORE so we don't have multiple ways to determine 4D distance
+            //so we just stick to Unity's weird 4D distance
 
-            //start with 1 color and add all colors to it
+            //start with 1 color in the mix (this must happen)
             float[] mixedColor = colors[0];
             float mixedColorQuant = (ignoreQuants) ? 1 : colorQuants[0];
 
-            for (int i = 1; i < colors.Count; i++)
+            for (int color = 1; color < colors.Count; color++) //loop through all of our colors and add them to the mix
             {
-                //the color we are goigng to add to our base color
-                float[] newColor = colors[i];
-                float newColorQuant = (ignoreQuants) ? 1 : colorQuants[i];
+                //we MIGHT add this newColor to the mix
+                float[] newColor = colors[color];
+                float newColorQuant = (ignoreQuants) ? 1 : colorQuants[color];
 
-                //calculate new color
-                //NOTE: this does Unity's strange 4D Distance to Lerp (IF your colors have 4 components or are 4D)
-                mixedColor = mixColorsGivenRatios(mixedColor, mixedColorQuant, newColor, newColorQuant);
-                mixedColorQuant += newColorQuant;
+                if(Mathf.Approximately(newColorQuant, 0) == false)  //we have some newColor to add to the mix
+                {
+                    //calculate new color
+                    //NOTE: this does Unity's strange 4D Distance to Lerp (IF your colors have 4 components or are 4D)
+                    mixedColor = mixColorsGivenRatios(mixedColor, mixedColorQuant, newColor, newColorQuant);
+                    mixedColorQuant += newColorQuant;
+                }
             }
 
             return mixedColor;
@@ -123,86 +126,60 @@ namespace colorKit
         }
 
         //Ignore Quants == false
-        static float[] colorAveraging(List<float[]> colors, float[] colorQuantities)
+        static float[] colorAveraging(List<float[]> colors, float[] colorQuants)
         {
-            return colorAveraging(colors, colorQuantities, false);
+            return colorAveraging(colors, colorQuants, false);
         }
 
         //BASE CODE
-        static float[] colorAveraging(List<float[]> colors, float[] colorQuantities, bool ignoreQuants)
+        static float[] colorAveraging(List<float[]> colors, float[] colorQuants, bool ignoreQuants)
         {
             bool _3DSpace = (colors[0].Length == 3) ? true : false;
 
             //We have 2 ways of determining 4D distance... BOTH FLAWED... so pick one a hope for the best...
             //even better... mix with 3D colors
 
+            //IF IM NOT MISTAKE... this first IF is a big modification because the original algorithm could only handle integers (1,2) but not 1.5 as a quantity
             if (_3DSpace || useVect4Dist)
             {
-                float[] color1 = colors[0];
-                float color1Quant = colorQuantities[0];
+
+                float[] mixedColor = colors[0];
+                float mixedColorQuant = (ignoreQuants) ? 1 : colorQuants[0];
 
                 //---check all code below
 
                 //SUM
-                for (int color2Index = 1; color2Index < colors.Count; color2Index++)
+                for (int color = 1; color < colors.Count; color++) //loop through every colors
                 {
-                    float[] color_1_and_2_Mix = new float[colors[0].Length];
+                    float[] color_1_and_2_Mix = new float[colors[0].Length]; //WHY DO I NEED THIS?
 
-                    float color2Quant = colorQuantities[color2Index];
-                    bool addInColor2 = false;
+                    float[] newColor = colors[color];
+                    float newColorQuant = (ignoreQuants) ? 1 : colorQuants[color];
 
-                    for (int component = 0; component < color1.Length; component++)
+                    if(Mathf.Approximately(newColorQuant, 0) == false) //add in color = true
                     {
-                        if (Mathf.Approximately(color2Quant, 0) == false)
-                        {
-                            color_1_and_2_Mix[component] = color1[component] + (colors[color2Index])[component];
-                            addInColor2 = true; //if we use one component then we use the color
-                        }
-                    }
+                        //add this color to our total
+                        for (int comp = 0; comp < mixedColor.Length; comp++)
+                            color_1_and_2_Mix[comp] = mixedColor[comp] + newColor[comp];
 
-                    //FIND OUT WHY THIS IS NESSESARY
-                    if (addInColor2)
-                    {
+                        //do something else about the color
                         //midColor Contains (ColorA + ColorB)... we need their average
                         for (int component = 0; component < color_1_and_2_Mix.Length; component++)
                             color_1_and_2_Mix[component] = color_1_and_2_Mix[component] / 2; //2 colors so we divide by 2
 
                         //midColor now contains the mix of both colors assuming equal porportion
-                        if (ignoreQuants)
-                            color1 = mixColorsGivenRatios(color1, 1, (colors[color2Index]), 1);
-                        else
-                            color1 = mixColorsGivenRatios(color1, color1Quant, (colors[color2Index]), color2Quant);
-                    }
+                        mixedColor = mixColorsGivenRatios(mixedColor, mixedColorQuant, newColor, newColorQuant);
 
-                    color1Quant += color2Quant;
+                        mixedColorQuant += newColorQuant;
+                    }
                 }
 
                 //---check all code above
 
-                return color1;
+                return mixedColor;
             }
-            else
+            else //CLOSEST TO THE ORIGINAL CODE
             {
-                /*
-                  
-                //FROM eachAsPercentOfMax
-
-                float[] mixedColor = new float[colors[0].Length];
-
-                //get total of all the colors
-                for (int color = 0; color < colors.Count; color++) //loop through all the colors
-                {
-                    float[] newColor = colors[color];
-                    float newColorQuant = (ignoreQuants) ? 1 : colorQuantities[color];
-
-                    for (int component = 0; component < mixedColor.Length; component++) //loop through all the components of this particular color
-                        mixedColor[component] += newColor[component] * newColorQuant;
-                }
-
-                */
-
-                //---check all code below
-
                 float[] mixedColor = new float[colors[0].Length];
                 float mixedColorQuant = 0;
 
@@ -210,18 +187,16 @@ namespace colorKit
                 for (int color = 0; color < colors.Count; color++) //loop through all the colors
                 {
                     float[] newColor = colors[color];
-                    float newColorQuant = (ignoreQuants) ? 1 : colorQuantities[color];
+                    float newColorQuant = (ignoreQuants) ? 1 : colorQuants[color];
 
-                    mixedColorQuant += newColorQuant;
-
-                    //DONT consider the color if the quantity of the color is 0... else consider it
-
-                    if (Mathf.Approximately(colorQuantities[color], 0) == false)
+                    if(Mathf.Approximately(newColorQuant, 0) == false)
+                    {
                         for (int component = 0; component < mixedColor.Length; component++) //loop through every component of this particular color
-                            mixedColor[component] += newColor[component];
-                }
+                            mixedColor[component] += (newColor[component] * newColorQuant);
 
-                //---check all code above
+                        mixedColorQuant += newColorQuant;
+                    }
+                }
 
                 //AVERAGE
                 for (int i = 0; i < mixedColor.Length; i++)
@@ -252,7 +227,7 @@ namespace colorKit
         }
 
         //BASE CODE
-        static float[] colorComponentAveraging(List<float[]> colors, float[] colorQuantities, bool ignoreQuants)
+        static float[] colorComponentAveraging(List<float[]> colors, float[] colorQuants, bool ignoreQuants)
         {
             bool _3DSpace = (colors[0].Length == 3) ? true : false;
 
@@ -264,7 +239,7 @@ namespace colorKit
                 //This sniplet is used IF we have 3D colors -OR- 4D colors where you are willing to use Unity's flawed vector 4 distance to approximate 4D space badly
 
                 float[] color1 = colors[0];
-                float color1Quant = colorQuantities[0];
+                float color1Quant = colorQuants[0];
 
                 //---Check all code below
 
@@ -274,7 +249,7 @@ namespace colorKit
                     float[] color_1_and_2_Mix = new float[color1.Length];
                     float[] color_1_and_2_MixComponentQuants = new float[color1.Length];
 
-                    float color2Quant = colorQuantities[color2Index];
+                    float color2Quant = colorQuants[color2Index];
 
                     bool addInColor2 = false;
 
@@ -327,7 +302,7 @@ namespace colorKit
                 for (int color = 0; color < colors.Count; color++) //loop through all the colors
                 {
                     float[] newColor = colors[color];
-                    float newColorQuant = (ignoreQuants) ? 1 : colorQuantities[color];
+                    float newColorQuant = (ignoreQuants) ? 1 : colorQuants[color];
 
                     for (int component = 0; component < mixedColor.Length; component++) //loop through all the components of this particular color
                     {
@@ -388,21 +363,23 @@ namespace colorKit
             //get total of all the colors
             for (int color = 0; color < colors.Count; color++) //loop through all the colors
             {
+                //we MIGHT add this newColor to the mix
                 float[] newColor = colors[color];
                 float newColorQuant = (ignoreQuants) ? 1 : colorQuantities[color];
 
-                for (int component = 0; component < mixedColor.Length; component++) //loop through all the components of this particular color
-                    mixedColor[component] += newColor[component] * newColorQuant;
+                if (Mathf.Approximately(newColorQuant, 0) == false) //we have some newColor to add to the mix
+                    for (int comp = 0; comp < newColor.Length; comp++) //loop through all the components of this particular color
+                        mixedColor[comp] += (newColor[comp] * newColorQuant);
             }
 
             // Calculate the max of all sums for each color component
             float maxComponent = 0;
-            for (int i = 0; i < mixedColor.Length; i++)
-                maxComponent = Mathf.Max(maxComponent, mixedColor[i]);
+            for (int comp = 0; comp < mixedColor.Length; comp++)
+                maxComponent = Mathf.Max(maxComponent, mixedColor[comp]);
 
             // Now calculate each channel as a percentage of the max
-            for (int i = 0; i < mixedColor.Length; i++)
-                mixedColor[i] = Mathf.Floor(mixedColor[i] / maxComponent * 255);
+            for (int comp = 0; comp < mixedColor.Length; comp++)
+                mixedColor[comp] = Mathf.Floor(mixedColor[comp] / maxComponent * 255);
 
             return mixedColor;
         }
