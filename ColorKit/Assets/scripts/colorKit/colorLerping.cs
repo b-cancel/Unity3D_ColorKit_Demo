@@ -18,9 +18,6 @@ namespace colorKit
 
     public static class colorLerping
     {
-
-        //-------------------------Color Lerping-------------------------
-
         public static Color colorLerp(colorSpace csToUse, Color start, Color end, float lerpValue) //value between 0 and 1
         {
             switch (csToUse)

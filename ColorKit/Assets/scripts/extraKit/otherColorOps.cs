@@ -5,13 +5,7 @@ using UnityEngine;
 namespace colorKit
 {
     public enum desiredMixtureType { additive, subtractive };
-
     public enum colorSpace { RGB, RYB, CMYK };
-    public enum updateLocation { fixedUpdate, Update };
-
-    public enum guideDistance { distBetween_Other, distBetween_StartAndEnd, distBetween_CurrAndEnd, distBetween_StartAndCurr };
-    public enum unitOfTime { frames, seconds };
-
     public enum mixingMethod { spaceAveraging, colorAveraging, colorComponentAveraging, eachAsPercentOfMax }
 
     public static class otherColorOps
@@ -69,7 +63,7 @@ namespace colorKit
 
         public static void printArray(string printLabel, float[] array)
         {
-            string text = printLabel + " ";
+            string text = printLabel + " (";
 
             for (int i = 0; i < array.Length; i++)
             {
@@ -79,7 +73,7 @@ namespace colorKit
                     text += array[i];
             }
 
-            UnityEngine.MonoBehaviour.print(text);
+            UnityEngine.MonoBehaviour.print(text + ")");
         }
 
         //-------------------------Error Correction-------------------------
