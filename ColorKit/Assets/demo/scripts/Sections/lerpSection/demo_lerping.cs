@@ -66,9 +66,9 @@ public class demo_lerping : MonoBehaviour
     Color endColor_CMYK;
 
     //calculated every frame
-    public Color currRGB_Color;
-    public Color currRYB_Color;
-    public Color currCMYK_Color;
+    public Color currColor_RGB;
+    public Color currColor_RYB;
+    public Color currColor_CMYK;
 
     public void manualAwake()
     {
@@ -141,9 +141,9 @@ public class demo_lerping : MonoBehaviour
             lerping = !lerping;
 
         //handle technical stuff
-        currRGB_Color = startColor;
-        currRYB_Color = startColor;
-        currCMYK_Color = startColor;
+        currColor_RGB = startColor;
+        currColor_RYB = startColor;
+        currColor_CMYK = startColor;
 
         rgbLerpSampleGO.GetComponent<thickRefs>().updateColor(startColor);
         rybLerpSampleGO.GetComponent<thickRefs>().updateColor(startColor);
@@ -195,54 +195,54 @@ public class demo_lerping : MonoBehaviour
 
         //-----RGB
 
-        float lerpValueRGB = colorLerping.calculateLerpValueGiven(
-            (largestDistanceLerp) ? distanceUsedToCalculateLerpValue.distBetween_BlackAndWhite : distanceUsedToCalculateLerpValue.distBetween_StartAndEndColor,
+        float lerpValueRGB = colorLerping.calcLerpVal(
+            startColor_RGB, //diff
+            endColor_RGB, //diff
+            currColor_RGB, //diff
+            (largestDistanceLerp) ? guideDistance.distBetween_Other : guideDistance.distBetween_StartAndEnd,
             timeToLerpDistance,
             (timeTypeSecond) ? unitOfTime.seconds : unitOfTime.frames,
             (fixedUpdateLerp) ? updateLocation.fixedUpdate : updateLocation.Update,
-            colorSpace.RGB, //diff
-            startColor_RGB, //diff
-            endColor_RGB, //diff
-            currRGB_Color //diff
+            colorSpace.RGB //diff
             );
 
-        currRGB_Color = colorLerping.colorLerp(colorSpace.RGB, currRGB_Color, endColor_RGB, lerpValueRGB);
+        currColor_RGB = colorLerping.colorLerp(colorSpace.RGB, currColor_RGB, endColor_RGB, lerpValueRGB);
 
         //-----RYB
 
-        float lerpValueRYB = colorLerping.calculateLerpValueGiven(
-            (largestDistanceLerp) ? distanceUsedToCalculateLerpValue.distBetween_BlackAndWhite : distanceUsedToCalculateLerpValue.distBetween_StartAndEndColor,
+        float lerpValueRYB = colorLerping.calcLerpVal(
+            startColor_RYB, //diff
+            endColor_RYB, //diff
+            currColor_RYB, //diff
+            (largestDistanceLerp) ? guideDistance.distBetween_Other : guideDistance.distBetween_StartAndEnd,
             timeToLerpDistance,
             (timeTypeSecond) ? unitOfTime.seconds : unitOfTime.frames,
             (fixedUpdateLerp) ? updateLocation.fixedUpdate : updateLocation.Update,
-            colorSpace.RYB, //diff
-            startColor_RYB, //diff
-            endColor_RYB, //diff
-            currRYB_Color //diff
+            colorSpace.RYB //diff
             );
 
-        currRYB_Color = colorLerping.colorLerp(colorSpace.RYB, currRYB_Color, endColor_RYB, lerpValueRYB);
+        currColor_RYB = colorLerping.colorLerp(colorSpace.RYB, currColor_RYB, endColor_RYB, lerpValueRYB);
 
         //-----CMYK
 
-        float lerpValueCMYK = colorLerping.calculateLerpValueGiven(
-            (largestDistanceLerp) ? distanceUsedToCalculateLerpValue.distBetween_BlackAndWhite : distanceUsedToCalculateLerpValue.distBetween_StartAndEndColor,
+        float lerpValueCMYK = colorLerping.calcLerpVal(
+            startColor_CMYK, //diff
+            endColor_CMYK, //diff
+            currColor_CMYK, //diff
+            (largestDistanceLerp) ? guideDistance.distBetween_Other : guideDistance.distBetween_StartAndEnd,
             timeToLerpDistance,
             (timeTypeSecond) ? unitOfTime.seconds : unitOfTime.frames,
             (fixedUpdateLerp) ? updateLocation.fixedUpdate : updateLocation.Update,
-            colorSpace.CMYK, //diff
-            startColor_CMYK, //diff
-            endColor_CMYK, //diff
-            currCMYK_Color //diff
+            colorSpace.CMYK //diff        
             );
 
-        currCMYK_Color = colorLerping.colorLerp(colorSpace.CMYK, currCMYK_Color, endColor_CMYK, lerpValueCMYK);
+        currColor_CMYK = colorLerping.colorLerp(colorSpace.CMYK, currColor_CMYK, endColor_CMYK, lerpValueCMYK);
 
         //----------Update The Colors Visually
 
-        rgbLerpSampleGO.GetComponent<thickRefs>().updateColor(currRGB_Color);
-        rybLerpSampleGO.GetComponent<thickRefs>().updateColor(currRYB_Color);
-        cmykLerpSampleGO.GetComponent<thickRefs>().updateColor(currCMYK_Color);
+        rgbLerpSampleGO.GetComponent<thickRefs>().updateColor(currColor_RGB);
+        rybLerpSampleGO.GetComponent<thickRefs>().updateColor(currColor_RYB);
+        cmykLerpSampleGO.GetComponent<thickRefs>().updateColor(currColor_CMYK);
 
         //---------Start and End Inversion because different color lerps will lerp at different paces
 

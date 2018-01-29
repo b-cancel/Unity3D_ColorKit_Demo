@@ -4,8 +4,6 @@ using UnityEngine;
 
 namespace colorKit
 {
-    //TODO... check function "calculateLerpValueGiven"... create a version of it for all types of lerping
-
     /// <summary>
     /// These functions are used to lerp between two colors by thinking of them as 2 points in 3 dimensional space. 
     /// All the Colors in the rGb and rYb color space now create a sort of color cube and we simply travel between two points on that cube.
@@ -27,7 +25,7 @@ namespace colorKit
         {
             switch (csToUse)
             {
-                case colorSpace.RGB:
+                case colorSpace.RGB: //NOTE: this works exaclty the same as Color.Lerp()
                     return colorLerp_inRGB_colorSpace(start, end, lerpValue);
                 case colorSpace.RYB:
                     return colorLerp_inRYB_colorSpace(start, end, lerpValue);
@@ -36,6 +34,7 @@ namespace colorKit
             }
         }
 
+        //NOTE: this works exaclty the same as Color.Lerp()
         static Color colorLerp_inRGB_colorSpace(Color start, Color end, float lerpValue) //value between 0 and 1
         {
             float[] startFloat_rGb = colorTypeConversion.color_to_array(start);
@@ -117,96 +116,6 @@ namespace colorKit
             }
             else
                 return start;
-        }
-
-        //-------------------------Color Lerping Helpers------------------------- 
-
-        //-----MAX Color Distances (distance between black and white in that particular color space) [assuming all components of the color are in 255 format]
-
-        //TODO... big yet unituitive optimization possible
-        //This should be used to calculate the lerpValue For "Color.Lerp(currColor, endColor, lerpValueCalculatedByThisFunction)"
-        public static float calculateLerpValueGiven(
-            distanceUsedToCalculateLerpValue guideDistance, //if given MAX DIST -> convert to -> this dist
-            float timeToTravel_GuideDistance, //units are below
-            unitOfTime UnitOfTime_forTimeToTravelGuideDistance, //if given SECONDS -> convert to -> frames
-
-            updateLocation LL, //update | fixedUpdate
-            colorSpace LCS, //rgb | ryb | cmyk
-
-            Color startColor,
-            Color endColor,
-            Color currColor
-            )
-        {
-
-            //---first calculated how many frames we need to travel our guide distance
-
-            float framesToTravelGuideDistance;
-            if (UnitOfTime_forTimeToTravelGuideDistance == unitOfTime.frames)
-                framesToTravelGuideDistance = timeToTravel_GuideDistance; //the user knows whether they mean physics (fixedUpdate) or graphics (Update) frames
-            else //unitOfTime.seconds
-            {
-                if (LL == updateLocation.fixedUpdate)
-                    framesToTravelGuideDistance = timeToTravel_GuideDistance / Time.fixedDeltaTime;
-                else //updateLocation.Update
-                    framesToTravelGuideDistance = timeToTravel_GuideDistance / Time.deltaTime;
-            }
-
-            //---Calculate our Distances
-
-            float dist_B_2_W = 0;
-            float dist_S_2_E = 0;
-            float dist_C_2_E = 0;
-
-            switch (LCS)
-            {
-                case colorSpace.RGB:
-                    dist_B_2_W = 441.672956f; // maxDistanceInRGBColorSpace
-                    dist_S_2_E = colorDistances.distBetweenColors(colorSpace.RGB, startColor, endColor);
-                    dist_C_2_E = colorDistances.distBetweenColors(colorSpace.RGB, currColor, endColor);
-                    break;
-                case colorSpace.RYB:
-                    dist_B_2_W = 441.672956f; //maxDistanceInRYBColorSpace
-                    dist_S_2_E = colorDistances.distBetweenColors(colorSpace.RYB, startColor, endColor);
-                    dist_C_2_E = colorDistances.distBetweenColors(colorSpace.RYB, currColor, endColor);
-                    break;
-                case colorSpace.CMYK:
-                    dist_B_2_W = 255; //maxDistanceInCMYKColorSpace (because we have no accurate representation for 4D distance)
-                    dist_S_2_E = colorDistances.distBetweenColors(colorSpace.CMYK, startColor, endColor);
-                    dist_C_2_E = colorDistances.distBetweenColors(colorSpace.CMYK, currColor, endColor);
-                    break;
-            }
-
-            //---Calculate how many frames we have left to finish
-
-            float framesToFinsih_C_2_E = -1;
-
-            switch (guideDistance)
-            {
-                case distanceUsedToCalculateLerpValue.distBetween_BlackAndWhite:
-                    framesToFinsih_C_2_E = (framesToTravelGuideDistance / dist_B_2_W) * dist_C_2_E;
-                    break;
-                case distanceUsedToCalculateLerpValue.distBetween_StartAndEndColor:
-                    framesToFinsih_C_2_E = (framesToTravelGuideDistance / dist_S_2_E) * dist_C_2_E;
-                    break;
-                case distanceUsedToCalculateLerpValue.distBetween_CurrentAndEndColor:
-                    framesToFinsih_C_2_E = framesToTravelGuideDistance;
-                    break;
-            }
-
-            //NOTE: I was previously using FloorToInt()... using Ceil is untested
-            framesToFinsih_C_2_E = (int)Mathf.CeilToInt(framesToFinsih_C_2_E);
-
-            //NOTE: as of now we know how many frames every distance will take... so now we use said data to lerp
-
-            //NOTE: "distPerFrame" that took so long to calculate WILL NOT CHANGE because we are aiming for a LERP
-            //so we travel the same distance every frame AS LONG AS OUR SETTINGS STAY THE SAME
-            float distPerFrame = dist_C_2_E / framesToFinsih_C_2_E;
-
-            //TODO... The Implication is that we only need to run this function once  and then just run "the one line" below every frame
-            float lerpValue = Mathf.Clamp((distPerFrame / dist_C_2_E), 0, 1);
-
-            return lerpValue;
         }
     }
 }

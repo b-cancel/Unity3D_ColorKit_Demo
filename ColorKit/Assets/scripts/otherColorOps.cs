@@ -9,7 +9,7 @@ namespace colorKit
     public enum colorSpace { RGB, RYB, CMYK };
     public enum updateLocation { fixedUpdate, Update };
 
-    public enum distanceUsedToCalculateLerpValue { distBetween_BlackAndWhite, distBetween_StartAndEndColor, distBetween_CurrentAndEndColor };
+    public enum guideDistance { distBetween_Other, distBetween_StartAndEnd, distBetween_CurrAndEnd, distBetween_StartAndCurr };
     public enum unitOfTime { frames, seconds };
 
     public enum mixingMethod { spaceAveraging, colorAveraging, colorComponentAveraging, eachAsPercentOfMax }

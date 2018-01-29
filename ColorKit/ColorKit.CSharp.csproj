@@ -325,6 +325,7 @@
     <Compile Include="Assets\scripts\colorLerping.cs" />
     <Compile Include="Assets\scripts\colorMixing.cs" />
     <Compile Include="Assets\scripts\colorTypeConversion.cs" />
+    <Compile Include="Assets\scripts\lerpHelper.cs" />
     <Compile Include="Assets\scripts\mixingMethods.cs" />
     <Compile Include="Assets\scripts\otherColorOps.cs" />
     <Compile Include="Assets\scripts\rgb2cmyk_cmyk2rgb.cs" />

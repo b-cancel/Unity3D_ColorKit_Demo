@@ -8383,9 +8383,9 @@ MonoBehaviour:
   distanceRGB_GO: {fileID: 848622315}
   distanceRYB_GO: {fileID: 565643084}
   distanceCMYK_GO: {fileID: 99859836}
-  currRGB_Color: {r: 0, g: 0, b: 0, a: 0}
-  currRYB_Color: {r: 0, g: 0, b: 0, a: 0}
-  currCMYK_Color: {r: 0, g: 0, b: 0, a: 0}
+  currColor_RGB: {r: 0, g: 0, b: 0, a: 0}
+  currColor_RYB: {r: 0, g: 0, b: 0, a: 0}
+  currColor_CMYK: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &2135710790
 MonoBehaviour:
   m_ObjectHideFlags: 0

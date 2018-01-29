@@ -193,7 +193,7 @@ public static class colorExtensionFunctions
     }
 
     public static float calculateLerpValueGiven(this Color c,
-        distanceUsedToCalculateLerpValue guideDistance, //if given MAX DIST -> convert to -> this dist
+        guideDistance guideDistance, //if given MAX DIST -> convert to -> this dist
         float timeToTravel_GuideDistance, //units are below
         unitOfTime UnitOfTime_forTimeToTravelGuideDistance, //if given SECONDS -> convert to -> frames
 
@@ -205,7 +205,7 @@ public static class colorExtensionFunctions
         Color currColor
         )
     {
-        return colorLerping.calculateLerpValueGiven(guideDistance, timeToTravel_GuideDistance, UnitOfTime_forTimeToTravelGuideDistance, LL, LCS, startColor, endColor, currColor);
+        return colorLerping.calcLerpVal(startColor, currColor, endColor, guideDistance, timeToTravel_GuideDistance, UnitOfTime_forTimeToTravelGuideDistance, LL, LCS);
     }
 
     #endregion
