@@ -179,42 +179,61 @@ public static class lerpHelper{
 
     public static float calcLerpValue(float startValue, float currValue, float endValue, float lerpVelocity_DperF)
     {
-        return 0;
+        //---calc distance left to travel
+        float distToFinish = Mathf.Abs(currValue - endValue);
+
+        //--- calc lerp value based on this
+        return Mathf.Clamp((lerpVelocity_DperF / distToFinish), 0, 1);
     }
 
     //-------------------------2 Dimensional
 
     public static float calcLerpValue(Vector2 startVect2, Vector2 currVector2, Vector2 endVector2, float lerpVelocity_DperF)
     {
-        return 0;
+        //---calc distance left to travel
+        float distToFinish = Vector2.Distance(currVector2, endVector2);
+
+        //--- calc lerp value based on this
+        return Mathf.Clamp((lerpVelocity_DperF / distToFinish), 0, 1);
     }
 
     //-------------------------3 Dimensional
 
     public static float calcLerpValue(Vector3 startVect3, Vector3 currVector3, Vector3 endVector3, float lerpVelocity_DperF)
     {
-        return 0;
+        //---calc distance left to travel
+        float distToFinish = Vector3.Distance(currVector3, endVector3);
+
+        //--- calc lerp value based on this
+        return Mathf.Clamp((lerpVelocity_DperF / distToFinish), 0, 1);
     }
 
     //-------------------------4 Dimensional
 
     public static float calcLerpValue(Vector4 startVect4, Vector4 currVector4, Vector4 endVector4, float lerpVelocity_DperF)
     {
-        return 0;
+        //---calc distance left to travel
+        float distToFinish = Vector4.Distance(currVector4, endVector4);
+
+        //--- calc lerp value based on this
+        return Mathf.Clamp((lerpVelocity_DperF / distToFinish), 0, 1);
     }
 
     //-------------------------BASE
 
     public static float calcLerpValue(float[] startValues, float[] currValues, float[] endValues, float lerpVelocity_DperF)
     {
-        return 0;
+        //---calc distance left to travel
+        float distToFinish = euclideanDistance(currValues, endValues);
+
+        //--- calc lerp value based on this
+        return Mathf.Clamp((lerpVelocity_DperF / distToFinish), 0, 1);
     }
 
     //-------------------------Colors
 
     public static float calcLerpValue(colorSpace CS, Color startColor, Color currColor, Color endColor, float lerpVelocity_DperF) //this uses the calcLerpValue function for vector3s
     {
-
         //---calc distance left to travel
         float distToFinish = 0;
         switch (CS)
@@ -230,23 +249,8 @@ public static class lerpHelper{
                 break;
         }
 
-        //---Calculate how many frames we have left to finish (based on our velocity)
-        float framesToFinish = distToFinish / lerpVelocity_DperF;
-
-        //frames are integers... not floats sowe convert
-        //NOTE: this will overshoot our destination... BUT your result is clamped so we DONT return the overshot value
-        framesToFinish = (int)Mathf.CeilToInt(framesToFinish);
-
-        //NOTE: as of now we know how many frames every distance will take... so now we use said data to lerp
-
-        //NOTE: "distPerFrame" that took so long to calculate WILL NOT CHANGE because we are aiming for a LERP
-        //so we travel the same distance every frame AS LONG AS OUR SETTINGS STAY THE SAME
-        float distPerFrame = distToFinish / framesToFinish;
-
-        //TODO... The Implication is that we only need to run this function once  and then just run "the one line" below every frame
-        float lerpValue = Mathf.Clamp((distPerFrame / distToFinish), 0, 1);
-
-        return lerpValue;
+        //--- calc lerp value based on this
+        return Mathf.Clamp((lerpVelocity_DperF / distToFinish), 0, 1);
     }
 
     //-------------------------HELPER FUNCTIONS-------------------------
