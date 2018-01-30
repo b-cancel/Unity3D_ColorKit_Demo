@@ -98,13 +98,7 @@ namespace lerpKit
 
         //-------------------------CALCULATE LERP VELOCITY-------------------------
 
-        //NOTE: the PUBLIC version only requires the "Update Location" when your "Unit of Time" is seconds
-        //HOWEVER... if I had a seperate PUBLIC version for seconds... and another for frames... then mistakes are likely to arise
-        //this is because eventhough the version that works with seconds would require 1 more parameter... 
-        //users could just type in a number and it will be taken as frames when what they really wanted was for it to be taken as seconds...
-        //but they wont notice... since unity will assume they want to use the frames function with the same name but 1 less paramter
-
-        public static float calcLerpVelocity(float guideDistance, float timeToTravel_GD, unitOfTime UOT_GD, updateLocation UL) //DO NOT USE THIS... instead use calcLerpValue with the extra paramters
+        static float calcLerpVelocity(float guideDistance, float timeToTravel_GD, unitOfTime UOT_GD, updateLocation UL)
         {
             return calcLerpVelocity(guideDistance, timeToFrames(timeToTravel_GD, UOT_GD, UL));
         }

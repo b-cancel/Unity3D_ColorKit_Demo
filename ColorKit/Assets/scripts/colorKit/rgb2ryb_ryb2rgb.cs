@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using extraKit;
 
 namespace colorKit
 {
@@ -74,8 +75,8 @@ namespace colorKit
                 b += w;
 
                 float[] ryb255 = new float[] { r, y, b };
-                ryb255 = otherColorOps.clamp(ryb255, 0, 255);
-                return otherColorOps.nanCheck(ryb255);
+                ryb255 = otherOps.clamp(ryb255, 0, 255);
+                return otherOps.nanCheck(ryb255);
             }
         }
 
@@ -130,8 +131,8 @@ namespace colorKit
                 b += w;
 
                 float[] rgb255 = new float[] { r, g, b };
-                rgb255 = otherColorOps.clamp(rgb255, 0, 255);
-                return otherColorOps.nanCheck(rgb255);
+                rgb255 = otherOps.clamp(rgb255, 0, 255);
+                return otherOps.nanCheck(rgb255);
             }
         }
     }

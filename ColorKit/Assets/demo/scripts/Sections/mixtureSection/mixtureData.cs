@@ -35,7 +35,7 @@ public class mixtureData
         //unlock aim for
 
         //create a set the new mixture
-        Color newColor = (ignoreQuants) ? colorMixing.mixColors(csUsed, mixAlgo, colorsToMix) : colorMixing.mixColors(csUsed, mixAlgo, colorsToMix, quantsToMix);
+        Color newColor = (ignoreQuants) ? colorMixing.mixColors(colorsToMix, csUsed, mixAlgo) : colorMixing.mixColors(colorsToMix, quantsToMix, csUsed, mixAlgo);
         theGO.GetComponent<mixtureRefs>().updateColor(newColor);
     }
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using extraKit;
 
 namespace colorKit
 {
@@ -27,7 +28,7 @@ namespace colorKit
             else
             {
                 float[] cmykFloat = rgb255_to_cmykFloat(rgb255);
-                return colorFormatConversion.colorFloat_to_color255(cmykFloat);
+                return formatConversion._float_to_255(cmykFloat);
             }
         }
 
@@ -53,8 +54,8 @@ namespace colorKit
 
                     // And return back the cmyk typed accordingly.
                     float[] cmykFloat = new float[] { cyan, magenta, yellow, black };
-                    cmykFloat = otherColorOps.clamp(cmykFloat, 0, 1);
-                    return otherColorOps.nanCheck(cmykFloat);
+                    cmykFloat = otherOps.clamp(cmykFloat, 0, 1);
+                    return otherOps.nanCheck(cmykFloat);
                 }
             }
         }
@@ -67,7 +68,7 @@ namespace colorKit
                 return new float[] { -1, -1, -1 };
             else
             {
-                float[] cmykFloat = colorFormatConversion.color255_to_colorFloat(cmyk255);
+                float[] cmykFloat = formatConversion._255_to_float(cmyk255);
                 return cmykFloat_to_rgb255(cmykFloat);
             }
         }
@@ -93,8 +94,8 @@ namespace colorKit
 
                     // And return back the rgb typed accordingly.
                     float[] rgb255 = new float[] { red, green, blue };
-                    rgb255 = otherColorOps.clamp(rgb255, 0, 255);
-                    return otherColorOps.nanCheck(rgb255);
+                    rgb255 = otherOps.clamp(rgb255, 0, 255);
+                    return otherOps.nanCheck(rgb255);
                 }
             }
         }

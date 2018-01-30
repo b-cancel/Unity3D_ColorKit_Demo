@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using colorKit;
+using lerpKit;
 
 public class demo_lerping : MonoBehaviour
 {
@@ -193,50 +194,46 @@ public class demo_lerping : MonoBehaviour
     {
         //----------Update The Colors programatically
 
+        guideDistance GD = (largestDistanceLerp) ? guideDistance.distBetween_Other : guideDistance.distBetween_StartAndEnd;
+
         //-----RGB
 
-        float lerpValueRGB = colorLerping.calcLerpVal(
-            startColor_RGB, //diff
-            endColor_RGB, //diff
-            currColor_RGB, //diff
-            (largestDistanceLerp) ? guideDistance.distBetween_Other : guideDistance.distBetween_StartAndEnd,
+        float guideDistRGB = colorLerpHelper.calcGuideDistance(startColor_RGB, currColor_RGB, endColor_RGB, colorSpace.RGB, GD);
+        float lerpValueRGB = colorLerpHelper.calcLerpValue(startColor_RGB, currColor_RGB, endColor_RGB,
+            guideDistRGB, 
             timeToLerpDistance,
             (timeTypeSecond) ? unitOfTime.seconds : unitOfTime.frames,
             (fixedUpdateLerp) ? updateLocation.fixedUpdate : updateLocation.Update,
-            colorSpace.RGB //diff
+            colorSpace.RGB
             );
 
-        currColor_RGB = colorLerping.colorLerp(colorSpace.RGB, currColor_RGB, endColor_RGB, lerpValueRGB);
+        currColor_RGB = colorLerping.colorLerp(currColor_RGB, endColor_RGB, lerpValueRGB, colorSpace.RGB);
 
         //-----RYB
 
-        float lerpValueRYB = colorLerping.calcLerpVal(
-            startColor_RYB, //diff
-            endColor_RYB, //diff
-            currColor_RYB, //diff
-            (largestDistanceLerp) ? guideDistance.distBetween_Other : guideDistance.distBetween_StartAndEnd,
+        float guideDistRYB = colorLerpHelper.calcGuideDistance(startColor_RYB, currColor_RYB, endColor_RYB, colorSpace.RYB, GD);
+        float lerpValueRYB = colorLerpHelper.calcLerpValue(startColor_RYB, currColor_RYB, endColor_RYB,
+            guideDistRYB, //calculate guide distance [(largestDistanceLerp) ? guideDistance.distBetween_Other : guideDistance.distBetween_StartAndEnd]
             timeToLerpDistance,
             (timeTypeSecond) ? unitOfTime.seconds : unitOfTime.frames,
             (fixedUpdateLerp) ? updateLocation.fixedUpdate : updateLocation.Update,
-            colorSpace.RYB //diff
+            colorSpace.RYB
             );
 
-        currColor_RYB = colorLerping.colorLerp(colorSpace.RYB, currColor_RYB, endColor_RYB, lerpValueRYB);
+        currColor_RYB = colorLerping.colorLerp(currColor_RYB, endColor_RYB, lerpValueRYB, colorSpace.RYB);
 
         //-----CMYK
 
-        float lerpValueCMYK = colorLerping.calcLerpVal(
-            startColor_CMYK, //diff
-            endColor_CMYK, //diff
-            currColor_CMYK, //diff
-            (largestDistanceLerp) ? guideDistance.distBetween_Other : guideDistance.distBetween_StartAndEnd,
+        float guideDistCMYK = colorLerpHelper.calcGuideDistance(startColor_CMYK, currColor_CMYK, endColor_CMYK, colorSpace.CMYK, GD);
+        float lerpValueCMYK = colorLerpHelper.calcLerpValue(startColor_CMYK, currColor_CMYK, endColor_CMYK,
+            guideDistCMYK, //calculate guide distance [(largestDistanceLerp) ? guideDistance.distBetween_Other : guideDistance.distBetween_StartAndEnd]
             timeToLerpDistance,
             (timeTypeSecond) ? unitOfTime.seconds : unitOfTime.frames,
             (fixedUpdateLerp) ? updateLocation.fixedUpdate : updateLocation.Update,
-            colorSpace.CMYK //diff        
+            colorSpace.CMYK
             );
 
-        currColor_CMYK = colorLerping.colorLerp(colorSpace.CMYK, currColor_CMYK, endColor_CMYK, lerpValueCMYK);
+        currColor_CMYK = colorLerping.colorLerp(currColor_CMYK, endColor_CMYK, lerpValueCMYK, colorSpace.CMYK);
 
         //----------Update The Colors Visually
 
@@ -319,9 +316,9 @@ public class demo_lerping : MonoBehaviour
             endColor_CMYK = endColor;
 
             //update the distance between colors in rgb and ryb
-            distanceBetweenColorsInRGB = colorDistances.distBetweenColors(colorSpace.RGB, startColor, endColor);
-            distanceBetweenColorsInRYB = colorDistances.distBetweenColors(colorSpace.RYB, startColor, endColor);
-            distanceBetweenColorsInCMYK = colorDistances.distBetweenColors(colorSpace.CMYK, startColor, endColor);
+            distanceBetweenColorsInRGB = colorDistances.distBetweenColors(startColor, endColor, colorSpace.RGB);
+            distanceBetweenColorsInRYB = colorDistances.distBetweenColors(startColor, endColor, colorSpace.RYB);
+            distanceBetweenColorsInCMYK = colorDistances.distBetweenColors(startColor, endColor, colorSpace.CMYK);
 
             distanceRGB_GO.GetComponent<InputField>().text = distanceBetweenColorsInRGB.ToString();
             distanceRYB_GO.GetComponent<InputField>().text = distanceBetweenColorsInRYB.ToString();

@@ -14,20 +14,20 @@ namespace colorKit
         //-------------------------Originally From Color Mixing-------------------------
 
         //Ignore Quants == true
-        public static float[] mixColors(mixingMethod mm, List<float[]> colors)
+        public static float[] mixColors(List<float[]> colors, mixingMethod mm)
         {
             float[] colorQuantities = new float[0]; //create it to meet requirements
-            return mixColors(mm, colors, colorQuantities, true);
+            return mixColors(colors, colorQuantities, mm, true);
         }
 
         //Ignore Quants == false
-        public static float[] mixColors(mixingMethod mm, List<float[]> colors, float[] colorQuantities)
+        public static float[] mixColors(List<float[]> colors, float[] colorQuantities, mixingMethod mm)
         {
-            return mixColors(mm, colors, colorQuantities, false);
+            return mixColors(colors, colorQuantities, mm, false);
         }
 
         //BASE CODE
-        static float[] mixColors(mixingMethod mm, List<float[]> colors, float[] colorQuantities, bool ignoreQuants)
+        static float[] mixColors(List<float[]> colors, float[] colorQuantities, mixingMethod mm, bool ignoreQuants)
         {
             if (
                 //COLOR QUANTITIES SHOULD BE POSITIVE... but I WILL NOT CHECK THIS...

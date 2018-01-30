@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using colorKit;
+using extraKit;
 
 public class colorChangeTool : MonoBehaviour {
 
@@ -46,9 +47,9 @@ public class colorChangeTool : MonoBehaviour {
     {
         slidersBeingSet = true;
 
-        float[] rgbFloat = colorTypeConversion.color_to_array(colorToRep);
+        float[] rgbFloat = typeConversion.color_to_array(colorToRep);
 
-        float[] rgb255 = colorFormatConversion.colorFloat_to_color255(rgbFloat);
+        float[] rgb255 = formatConversion._float_to_255(rgbFloat);
         float[] ryb255 = rgb2ryb_ryb2rgb.rgb255_to_ryb255(rgb255);
         float[] cmyk255 = rgb2cmyk_cmyk2rgb.rgb255_to_cmyk255(rgb255);
 
@@ -162,8 +163,8 @@ public class colorChangeTool : MonoBehaviour {
 
     void newColor(float[] new_rgb255)
     {
-        float[] new_rgbFloat = colorFormatConversion.color255_to_colorFloat(new_rgb255);
-        Color newColor = colorTypeConversion.array_to_color(new_rgbFloat);
+        float[] new_rgbFloat = formatConversion._255_to_float(new_rgb255);
+        Color newColor = typeConversion.array_to_color(new_rgbFloat);
         Camera.main.GetComponent<demo_colors>().colorDataList[attachedColorData].setColor(newColor);
     }
 }

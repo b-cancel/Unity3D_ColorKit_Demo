@@ -48,16 +48,15 @@ public static class colorEXT
 
     #endregion
 
-    //TODO... correct order
     #region colorDistances 
 
     //Description: find the distance Between 2 Colors in 1D, 2D, 3D, and 4D Space
 
     //NOTE: Vector 4 distance works out to be really strange because we don't really have an accurate version of distance in 4 Dimensional Space
 
-    public static float distBetweenColors(this Color c, colorSpace colorSpaceUsed, Color color1, Color color2)
+    public static float distBetweenColors(this Color c, Color color1, Color color2, colorSpace colorSpaceUsed)
     {
-        return colorDistances.distBetweenColors(colorSpaceUsed, color1, color2);
+        return colorDistances.distBetweenColors(color1, color2, colorSpaceUsed);
     }
 
     public static float distBetweenColors(this Color c, float[] color1, float[] color2)
@@ -67,14 +66,13 @@ public static class colorEXT
 
     #endregion
 
-    //TODO... correct order
     #region colorCompliments
 
     //get the complement / inverse of a color
 
-    public static Color complimentary(this Color c, colorSpace csToUse, Color origColor)
+    public static Color complimentary(this Color c, Color origColor, colorSpace csToUse)
     {
-        return colorCompliments.complimentary(csToUse, origColor);
+        return colorCompliments.complimentary(origColor, csToUse);
     }
 
     public static float[] complimentary(this Color c, float[] color, int floatLimit)
@@ -84,14 +82,13 @@ public static class colorEXT
 
     #endregion
 
-    //TODO... correct order
     #region colorLerping
 
     //Allows you to interpolate between 2 colors
 
-    public static Color colorLerp(this Color c, colorSpace csToUse, Color start, Color end, float lerpValue)
+    public static Color colorLerp(this Color c, Color start, Color end, float lerpValue, colorSpace csToUse)
     {
-        return colorLerping.colorLerp(csToUse, start, end, lerpValue);
+        return colorLerping.colorLerp(start, end, lerpValue, csToUse);
     }
 
     public static float[] colorLerp(this Color c, float[] start, float[] end, float lerpValue)
@@ -101,52 +98,49 @@ public static class colorEXT
 
     #endregion
 
-    //TODO... correct order
     #region colorLerpHelper
 
-    public static float calcGuideDistance(this Color c, colorSpace CS, guideDistance GD, Color startColor, Color currColor, Color endColor)
+    public static float calcGuideDistance(this Color c, Color startColor, Color currColor, Color endColor, colorSpace CS, guideDistance GD)
     {
-        return colorLerpHelper.calcGuideDistance(CS, GD, startColor, currColor, endColor);
+        return colorLerpHelper.calcGuideDistance(startColor, currColor, endColor, CS, GD);
     }
 
-    public static float calcLerpValue(this Color c, colorSpace CS, Color startColor, Color currColor, Color endColor, float guideDistance, float guideTime, unitOfTime UOT_GD, updateLocation UL)
+    public static float calcLerpValue(this Color c, Color startColor, Color currColor, Color endColor, float guideDistance, float guideTime, unitOfTime UOT_GD, updateLocation UL, colorSpace CS)
     {
-        return colorLerpHelper.calcLerpValue(CS, startColor, currColor, endColor, guideDistance, guideTime, UOT_GD, UL);
+        return colorLerpHelper.calcLerpValue(startColor, currColor, endColor, guideDistance, guideTime, UOT_GD, UL, CS);
     }
 
-    public static float calcLerpValue(this Color c, colorSpace CS, Color startColor, Color currColor, Color endColor, float lerpVelocity_DperF)
+    public static float calcLerpValue(this Color c, Color startColor, Color currColor, Color endColor, float lerpVelocity_DperF, colorSpace CS)
     {
-        return colorLerpHelper.calcLerpValue(CS, startColor, currColor, endColor, lerpVelocity_DperF);
+        return colorLerpHelper.calcLerpValue(startColor, currColor, endColor, lerpVelocity_DperF, CS);
     }
 
     #endregion
 
-    //TODO... correct order
     #region colorMixing
 
-    public static Color mixColors(this Color c, colorSpace csToUse, mixingMethod mm, Color[] colors)
+    public static Color mixColors(this Color c, Color[] colors, colorSpace csToUse, mixingMethod mm)
     {
-        return colorMixing.mixColors(csToUse, mm, colors);
+        return colorMixing.mixColors(colors, csToUse, mm);
     }
 
-    public static Color mixColors(this Color c, colorSpace csToUse, mixingMethod mm, Color[] colors, float[] colorQuantities)
+    public static Color mixColors(this Color c, Color[] colors, float[] colorQuantities, colorSpace csToUse, mixingMethod mm)
     {
-        return colorMixing.mixColors(csToUse, mm, colors, colorQuantities);
+        return colorMixing.mixColors(colors, colorQuantities, csToUse, mm);
     }
 
     #endregion
 
-    //TODO... correct order
     #region mixingMethods
 
-    public static float[] mixColors(this Color c, mixingMethod mm, List<float[]> colors)
+    public static float[] mixColors(this Color c, List<float[]> colors, mixingMethod mm)
     {
-        return mixingMethods.mixColors(mm, colors);
+        return mixingMethods.mixColors(colors, mm);
     }
 
-    public static float[] mixColors(this Color c, mixingMethod mm, List<float[]> colors, float[] colorQuantities)
+    public static float[] mixColors(this Color c, List<float[]> colors, float[] colorQuantities, mixingMethod mm)
     {
-        return mixingMethods.mixColors(mm, colors, colorQuantities);
+        return mixingMethods.mixColors(colors, colorQuantities, mm);
     }
 
     #endregion
@@ -184,7 +178,6 @@ public static class colorEXT
 
     #endregion
 
-    //TODO... correct order
     #region colorDistances 
 
     //Description: find the distance Between 2 Colors in 1D, 2D, 3D, and 4D Space
@@ -193,7 +186,7 @@ public static class colorEXT
 
     public static float distBetweenColors(this Color color1, Color color2, colorSpace colorSpaceUsed)
     {
-        return colorDistances.distBetweenColors(colorSpaceUsed, color1, color2);
+        return colorDistances.distBetweenColors(color1, color2, colorSpaceUsed);
     }
 
     public static float distBetweenColors(this float[] color1, float[] color2)
@@ -203,14 +196,13 @@ public static class colorEXT
 
     #endregion
 
-    //TODO... correct order
     #region colorCompliments
 
     //get the complement / inverse of a color
 
     public static Color complimentary(this Color color, colorSpace csToUse)
     {
-        return colorCompliments.complimentary(csToUse, color);
+        return colorCompliments.complimentary(color, csToUse);
     }
 
     public static float[] complimentary(this float[] color, int floatLimit)
@@ -220,14 +212,13 @@ public static class colorEXT
 
     #endregion
 
-    //TODO... correct order
     #region colorLerping
 
     //Allows you to interpolate between 2 colors
 
-    public static Color colorLerp(this Color startColor, Color endColor, colorSpace csToUse, float lerpValue)
+    public static Color colorLerp(this Color startColor, Color endColor, float lerpValue, colorSpace csToUse)
     {
-        return colorLerping.colorLerp(csToUse, startColor, endColor, lerpValue);
+        return colorLerping.colorLerp(startColor, endColor, lerpValue, csToUse);
     }
 
     public static float[] colorLerp(this float[] startValues, float[] endValues, float lerpValue)
@@ -237,52 +228,49 @@ public static class colorEXT
 
     #endregion
 
-    //TODO... correct order
     #region colorLerpHelper
 
     public static float calcGuideDistance(this Color startColor, Color currColor, Color endColor, colorSpace CS, guideDistance GD)
     {
-        return colorLerpHelper.calcGuideDistance(CS, GD, startColor, currColor, endColor);
+        return colorLerpHelper.calcGuideDistance(startColor, currColor, endColor, CS, GD);
     }
 
-    public static float calcLerpValue(this Color startColor, Color currColor, Color endColor, colorSpace CS, float guideDistance, float guideTime, unitOfTime UOT_GD, updateLocation UL)
+    public static float calcLerpValue(this Color startColor, Color currColor, Color endColor, float guideDistance, float guideTime, unitOfTime UOT_GD, updateLocation UL, colorSpace CS)
     {
-        return colorLerpHelper.calcLerpValue(CS, startColor, currColor, endColor, guideDistance, guideTime, UOT_GD, UL);
+        return colorLerpHelper.calcLerpValue(startColor, currColor, endColor, guideDistance, guideTime, UOT_GD, UL, CS);
     }
 
-    public static float calcLerpValue(this Color startColor, Color currColor, Color endColor, colorSpace CS, float lerpVelocity_DperF)
+    public static float calcLerpValue(this Color startColor, Color currColor, Color endColor, float lerpVelocity_DperF, colorSpace CS)
     {
-        return colorLerpHelper.calcLerpValue(CS, startColor, currColor, endColor, lerpVelocity_DperF);
+        return colorLerpHelper.calcLerpValue(startColor, currColor, endColor, lerpVelocity_DperF, CS);
     }
 
     #endregion
 
-    //TODO... correct order
     #region colorMixing
 
     public static Color mixColors(this Color[] colors, colorSpace csToUse, mixingMethod mm)
     {
-        return colorMixing.mixColors(csToUse, mm, colors);
+        return colorMixing.mixColors(colors, csToUse, mm);
     }
 
     public static Color mixColors(this Color[] colors, float[] colorQuantities, colorSpace csToUse, mixingMethod mm)
     {
-        return colorMixing.mixColors(csToUse, mm, colors, colorQuantities);
+        return colorMixing.mixColors(colors, colorQuantities, csToUse, mm);
     }
 
     #endregion
 
-    //TODO... correct order
     #region mixingMethods
 
     public static float[] mixColors(this List<float[]> colors, mixingMethod mm)
     {
-        return mixingMethods.mixColors(mm, colors);
+        return mixingMethods.mixColors(colors, mm);
     }
 
     public static float[] mixColors(this List<float[]> colors, float[] colorQuantities, mixingMethod mm)
     {
-        return mixingMethods.mixColors(mm, colors, colorQuantities);
+        return mixingMethods.mixColors(colors, colorQuantities, mm);
     }
 
     #endregion
