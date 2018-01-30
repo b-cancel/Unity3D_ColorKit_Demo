@@ -4,11 +4,19 @@ using System.Collections.Generic;
 using colorKit;
 using lerpKit;
 
-//allows the colorKit to also be addressible as extension methods of the colors class
-//NOTE: that the instance of color that you use to call the method isnt used... its simply a placeholder
+namespace colorKit
+{
+    public enum desiredMixtureType { additive, subtractive };
+    public enum colorSpace { RGB, RYB, CMYK };
+    public enum mixingMethod { spaceAveraging, colorAveraging, colorComponentAveraging, eachAsPercentOfMax }
+}
+
+//DESCRIPTION: this script allows the colorKit to also be addressible as extension methods of Unity's Color class (and others)
 
 public static class colorEXT
 {
+    //-----FUNCTION VERSIONS that use a dummy (non used) instance of 'Color'
+
     #region rgb2ryb_ryb2rgb
 
     //Description: Convert RGB to RYB -and- RYB to RGB
@@ -40,6 +48,7 @@ public static class colorEXT
 
     #endregion
 
+    //TODO... correct order
     #region colorDistances 
 
     //Description: find the distance Between 2 Colors in 1D, 2D, 3D, and 4D Space
@@ -58,6 +67,7 @@ public static class colorEXT
 
     #endregion
 
+    //TODO... correct order
     #region colorCompliments
 
     //get the complement / inverse of a color
@@ -74,6 +84,7 @@ public static class colorEXT
 
     #endregion
 
+    //TODO... correct order
     #region colorLerping
 
     //Allows you to interpolate between 2 colors
@@ -90,6 +101,7 @@ public static class colorEXT
 
     #endregion
 
+    //TODO... correct order
     #region colorLerpHelper
 
     public static float calcGuideDistance(this Color c, colorSpace CS, guideDistance GD, Color startColor, Color currColor, Color endColor)
@@ -109,6 +121,7 @@ public static class colorEXT
 
     #endregion
 
+    //TODO... correct order
     #region colorMixing
 
     public static Color mixColors(this Color c, colorSpace csToUse, mixingMethod mm, Color[] colors)
@@ -123,6 +136,7 @@ public static class colorEXT
 
     #endregion
 
+    //TODO... correct order
     #region mixingMethods
 
     public static float[] mixColors(this Color c, mixingMethod mm, List<float[]> colors)
@@ -137,179 +151,138 @@ public static class colorEXT
 
     #endregion
 
-    //--- move to general kit
+    //-----FUNCTION VERSIONS that use the instance of whatever type they extend (the instance will be of the same type as the first parameter)
 
-    #region colorFormatConversion
+    #region rgb2ryb_ryb2rgb
 
-    //Description: Change the Color's Format (255,float,hex)
+    //Description: Convert RGB to RYB -and- RYB to RGB
 
-    //color in float format -> 255 format
-    public static float[] colorFloat_to_color255(this Color c, float[] colorFloat)
+    public static float[] rgb255_to_ryb255(this float[] rgb255)
     {
-        return colorFormatConversion.colorFloat_to_color255(colorFloat);
+        return rgb2ryb_ryb2rgb.rgb255_to_ryb255(rgb255);
     }
 
-    //color in float format -> hex format
-    public static string[] colorFloat_to_colorHex(this Color c, float[] colorFloat)
+    public static float[] ryb255_to_rgb255(this float[] ryb255)
     {
-        return colorFormatConversion.colorFloat_to_colorHex(colorFloat);
-    }
-
-    //color in 255 format -> float format
-    public static float[] color255_to_colorFloat(this Color c, float[] color255)
-    {
-        return colorFormatConversion.color255_to_colorFloat(color255);
-    }
-
-    //color in 255 format -> hex format
-    public static string[] color255_to_colorHex(this Color c, float[] color255)
-    {
-        return colorFormatConversion.color255_to_colorHex(color255);
-    }
-
-    //color in hex format -> float format
-    public static float[] colorHex_to_colorFloat(this Color c, string[] colorHex)
-    {
-        return colorFormatConversion.colorHex_to_colorFloat(colorHex);
-    }
-
-    //color in hex format -> 255 format
-    public static float[] colorHex_to_color255(this Color c, string[] colorHex)
-    {
-        return colorFormatConversion.colorHex_to_color255(colorHex);
+        return rgb2ryb_ryb2rgb.ryb255_to_rgb255(ryb255);
     }
 
     #endregion
 
-    #region colorTypeConversion
+    #region rgb2cmyk_cmyk2rgb
 
-    //Description: Change the Color's Data Type (Vectors, Arrays, Colors)
+    //Description: Convert RGB to CMYK -and- CMYK to RGB
 
-    //-----2 component ??? (Vector2 | Array)
-
-    public static float[] vector2_to_array(this Color c, Vector2 vector2)
+    public static float[] rgb255_to_cmyk255(this float[] rgb255)
     {
-        return colorTypeConversion.vector2_to_array(vector2);
+        return rgb2cmyk_cmyk2rgb.rgb255_to_cmyk255(rgb255);
     }
-
-    public static Vector2 array_to_vector2(this Color c, float[] array)
+    public static float[] cmyk255_to_rgb255(this float[] cmyk255)
     {
-        return colorTypeConversion.array_to_vector2(array);
-    }
-
-    //-----3 Component Color (Vector3 | Array | Color)
-
-    public static float[] vector3_to_array(this Color c, Vector3 vector3)
-    {
-        return colorTypeConversion.vector3_to_array(vector3);
-    }
-
-    public static Color vector3_to_color(this Color c, Vector3 vector3)
-    {
-        return colorTypeConversion.vector3_to_color(vector3);
-    }
-
-    public static Vector3 array_to_vector3(this Color c, float[] array)
-    {
-        return colorTypeConversion.array_to_vector3(array);
-    }
-
-    public static Color array_to_color(this Color c, float[] array)
-    {
-        return colorTypeConversion.array_to_color(array);
-    }
-
-    public static Vector3 color_to_vector3(this Color c, Color color)
-    {
-        return colorTypeConversion.color_to_vector3(color);
-    }
-
-    public static float[] color_to_array(this Color c, Color color)
-    {
-        return colorTypeConversion.color_to_array(color);
-    }
-
-    //-----4 Component Color (Vector4 | Array)
-
-    public static float[] vector4_to_array(this Color c, Vector4 vector4)
-    {
-        return colorTypeConversion.vector4_to_array(vector4);
-    }
-
-    public static Vector4 array_to_vector4(this Color c, float[] array)
-    {
-        return colorTypeConversion.array_to_vector4(array);
+        return rgb2cmyk_cmyk2rgb.cmyk255_to_rgb255(cmyk255);
     }
 
     #endregion
 
-    #region otherColorOps
+    //TODO... correct order
+    #region colorDistances 
 
-    //-------------------------Print Functions-------------------------
+    //Description: find the distance Between 2 Colors in 1D, 2D, 3D, and 4D Space
 
-    //---4 component
+    //NOTE: Vector 4 distance works out to be really strange because we don't really have an accurate version of distance in 4 Dimensional Space
 
-    public static void printVector4(this Color c, Vector4 vect4)
+    public static float distBetweenColors(this Color color1, Color color2, colorSpace colorSpaceUsed)
     {
-        otherColorOps.printVector4(vect4);
+        return colorDistances.distBetweenColors(colorSpaceUsed, color1, color2);
     }
 
-    public static void printVector4(this Color c, string printLabel, Vector4 vect4)
+    public static float distBetweenColors(this float[] color1, float[] color2)
     {
-        otherColorOps.printVector4(printLabel, vect4);
+        return colorDistances.distBetweenColors(color1, color2);
     }
 
-    //---3 component
+    #endregion
 
-    public static void printVector3(this Color c, Vector3 vect3)
+    //TODO... correct order
+    #region colorCompliments
+
+    //get the complement / inverse of a color
+
+    public static Color complimentary(this Color color, colorSpace csToUse)
     {
-        otherColorOps.printVector3(vect3);
+        return colorCompliments.complimentary(csToUse, color);
     }
 
-    public static void printVector3(this Color c, string printLabel, Vector3 vect3)
+    public static float[] complimentary(this float[] color, int floatLimit)
     {
-        otherColorOps.printVector3(printLabel, vect3);
+        return colorCompliments.complimentary(color, floatLimit);
     }
 
-    public static void printColor(this Color c, Color color)
+    #endregion
+
+    //TODO... correct order
+    #region colorLerping
+
+    //Allows you to interpolate between 2 colors
+
+    public static Color colorLerp(this Color startColor, Color endColor, colorSpace csToUse, float lerpValue)
     {
-        otherColorOps.printColor(color);
+        return colorLerping.colorLerp(csToUse, startColor, endColor, lerpValue);
     }
 
-    public static void printColor(this Color c, string printLabel, Color color)
+    public static float[] colorLerp(this float[] startValues, float[] endValues, float lerpValue)
     {
-        otherColorOps.printColor(printLabel, color);
+        return colorLerping.colorLerp(startValues, endValues, lerpValue);
     }
 
-    //---2 component
+    #endregion
 
-    public static void printVector2(this Color c, Vector2 vect2)
+    //TODO... correct order
+    #region colorLerpHelper
+
+    public static float calcGuideDistance(this Color startColor, Color currColor, Color endColor, colorSpace CS, guideDistance GD)
     {
-        otherColorOps.printVector2(vect2);
+        return colorLerpHelper.calcGuideDistance(CS, GD, startColor, currColor, endColor);
     }
 
-    public static void printVector2(this Color c, string printLabel, Vector2 vect2)
+    public static float calcLerpValue(this Color startColor, Color currColor, Color endColor, colorSpace CS, float guideDistance, float guideTime, unitOfTime UOT_GD, updateLocation UL)
     {
-        otherColorOps.printVector2(printLabel, vect2);
+        return colorLerpHelper.calcLerpValue(CS, startColor, currColor, endColor, guideDistance, guideTime, UOT_GD, UL);
     }
 
-    //-----BASE
-
-    public static void printArray(this Color c, string printLabel, float[] array)
+    public static float calcLerpValue(this Color startColor, Color currColor, Color endColor, colorSpace CS, float lerpVelocity_DperF)
     {
-        otherColorOps.printArray(printLabel, array);
+        return colorLerpHelper.calcLerpValue(CS, startColor, currColor, endColor, lerpVelocity_DperF);
     }
 
-    //-------------------------Error Correction-------------------------
+    #endregion
 
-    public static float[] nanCheck(this Color c, float[] array)
+    //TODO... correct order
+    #region colorMixing
+
+    public static Color mixColors(this Color[] colors, colorSpace csToUse, mixingMethod mm)
     {
-        return otherColorOps.nanCheck(array);
+        return colorMixing.mixColors(csToUse, mm, colors);
     }
 
-    public static float[] clamp(this Color c, float[] array, float min, float max)
+    public static Color mixColors(this Color[] colors, float[] colorQuantities, colorSpace csToUse, mixingMethod mm)
     {
-        return otherColorOps.clamp(array, min, max);
+        return colorMixing.mixColors(csToUse, mm, colors, colorQuantities);
+    }
+
+    #endregion
+
+    //TODO... correct order
+    #region mixingMethods
+
+    public static float[] mixColors(this List<float[]> colors, mixingMethod mm)
+    {
+        return mixingMethods.mixColors(mm, colors);
+    }
+
+    public static float[] mixColors(this List<float[]> colors, float[] colorQuantities, mixingMethod mm)
+    {
+        return mixingMethods.mixColors(mm, colors, colorQuantities);
     }
 
     #endregion

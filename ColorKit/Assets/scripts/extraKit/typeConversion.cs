@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace colorKit
+namespace extraKit
 {
     //Description: Change the Color's Data Type (Vectors, Arrays, Colors)
 
-    public static class colorTypeConversion
+    public static class typeConversion
     {
-
         //-----2 component ??? (Vector2 | Array)
 
         public static float[] vector2_to_array(Vector2 vector2)

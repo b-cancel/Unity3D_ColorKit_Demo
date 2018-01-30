@@ -2,66 +2,61 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace colorKit
+namespace extraKit
 {
-    public enum desiredMixtureType { additive, subtractive };
-    public enum colorSpace { RGB, RYB, CMYK };
-    public enum mixingMethod { spaceAveraging, colorAveraging, colorComponentAveraging, eachAsPercentOfMax }
-
-    public static class otherColorOps
+    public static class otherOps
     {
-
         //-------------------------Print Functions-------------------------
 
         //---4 component
 
-        public static void printVector4(Vector4 vect4)
+        public static void print(Vector4 vect4)
         {
-            printVector4("", vect4);
+            print(vect4,"");
         }
 
-        public static void printVector4(string printLabel, Vector4 vect4)
+        public static void print(Vector4 vect4, string printLabel)
         {
-            printArray(printLabel, colorTypeConversion.vector4_to_array(vect4));
+            print(typeConversion.vector4_to_array(vect4), printLabel);
         }
 
         //---3 component
 
-        public static void printVector3(Vector3 vect3)
+        public static void print(Vector3 vect3)
         {
-            printVector3("", vect3);
+            print(vect3, "");
         }
 
-        public static void printVector3(string printLabel, Vector3 vect3)
+        public static void print(Vector3 vect3, string printLabel)
         {
-            printArray(printLabel, colorTypeConversion.vector3_to_array(vect3));
+            print(typeConversion.vector3_to_array(vect3), printLabel);
         }
 
-        public static void printColor(Color color)
+        public static void print(Color color)
         {
-            printColor("", color);
+            print(color, "");
         }
 
-        public static void printColor(string printLabel, Color color)
+        public static void print(Color color, string printLabel)
         {
-            printArray(printLabel, colorTypeConversion.color_to_array(color));
+            print(typeConversion.color_to_array(color), printLabel);
         }
 
         //---2 component
 
-        public static void printVector2(Vector2 vect2)
+        public static void print(Vector2 vect2)
         {
-            printVector2("", vect2);
+            print(vect2, "");
         }
 
-        public static void printVector2(string printLabel, Vector2 vect2)
+        public static void print(Vector2 vect2, string printLabel)
         {
-            printArray(printLabel, colorTypeConversion.vector2_to_array(vect2));
+            print(typeConversion.vector2_to_array(vect2), printLabel);
         }
 
         //-----BASE
 
-        public static void printArray(string printLabel, float[] array)
+        public static void print(float[] array, string printLabel)
         {
             string text = printLabel + " (";
 
