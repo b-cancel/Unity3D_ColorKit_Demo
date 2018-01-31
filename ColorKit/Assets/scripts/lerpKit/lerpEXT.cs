@@ -41,33 +41,9 @@ public static class lerpEXT{
         return lerpHelper.calcGuideDistance(startValues, currValues, endValues, GD);
     }
 
-    #endregion
-
-    #region Calculate Lerp Value (with Distance, Time, Unit of Time, and Update Location)
-
-    public static float calcLerpValue(this float f, float startValue, float currValue, float endValue, float guideDistance, float guideTime, unitOfTime UOT_GD, updateLocation UL)
+    public static float calcGuideDistance(this Color c, Color startColor, Color currColor, Color endColor, guideDistance GD)
     {
-        return lerpHelper.calcLerpValue(startValue, currValue, endValue, guideDistance, guideTime, UOT_GD, UL);
-    }
-
-    public static float calcLerpValue(this Vector2 v2, Vector2 startVector2, Vector2 currVector2, Vector2 endVector2, float guideDistance, float guideTime, unitOfTime UOT_GD, updateLocation UL)
-    {
-        return lerpHelper.calcLerpValue(startVector2, currVector2, endVector2, guideDistance, guideTime, UOT_GD, UL);
-    }
-
-    public static float calcLerpValue(this Vector3 v3, Vector3 startVector3, Vector3 currVector3, Vector3 endVector3, float guideDistance, float guideTime, unitOfTime UOT_GD, updateLocation UL)
-    {
-        return lerpHelper.calcLerpValue(startVector3, currVector3, endVector3, guideDistance, guideTime, UOT_GD, UL);
-    }
-
-    public static float calcLerpValue(this Vector4 v4, Vector4 startVector4, Vector4 currVector4, Vector4 endVector4, float guideDistance, float guideTime, unitOfTime UOT_GD, updateLocation UL)
-    {
-        return lerpHelper.calcLerpValue(startVector4, currVector4, endVector4, guideDistance, guideTime, UOT_GD, UL);
-    }
-
-    public static float calcLerpValue(this float[] fa, float[] startValues, float[] currValues, float[] endValues, float guideDistance, float guideTime, unitOfTime UOT_GD, updateLocation UL)
-    {
-        return lerpHelper.calcLerpValue(startValues, currValues, endValues, guideDistance, guideTime, UOT_GD, UL);
+        return lerpHelper.calcGuideDistance(startColor, currColor, endColor, GD);
     }
 
     #endregion
@@ -99,7 +75,51 @@ public static class lerpEXT{
         return lerpHelper.calcLerpValue(startValues, currValues, endValues, lerpVelocity_DperF);
     }
 
+    public static float calcLerpValue(this Color c, Color startColor, Color currColor, Color endColor, float lerpVelocity_DperF)
+    {
+        return lerpHelper.calcLerpValue(startColor, currColor, endColor, lerpVelocity_DperF);
+    }
+
     #endregion
+
+    #region Calculate Lerp Value (with Distance, Time, Unit of Time, and Update Location)
+
+    public static float calcLerpValue(this float f, float startValue, float currValue, float endValue, float guideDistance, float guideTime, unitOfTime UOT_GD, updateLocation UL)
+    {
+        return lerpHelper.calcLerpValue(startValue, currValue, endValue, guideDistance, guideTime, UOT_GD, UL);
+    }
+
+    public static float calcLerpValue(this Vector2 v2, Vector2 startVector2, Vector2 currVector2, Vector2 endVector2, float guideDistance, float guideTime, unitOfTime UOT_GD, updateLocation UL)
+    {
+        return lerpHelper.calcLerpValue(startVector2, currVector2, endVector2, guideDistance, guideTime, UOT_GD, UL);
+    }
+
+    public static float calcLerpValue(this Vector3 v3, Vector3 startVector3, Vector3 currVector3, Vector3 endVector3, float guideDistance, float guideTime, unitOfTime UOT_GD, updateLocation UL)
+    {
+        return lerpHelper.calcLerpValue(startVector3, currVector3, endVector3, guideDistance, guideTime, UOT_GD, UL);
+    }
+
+    public static float calcLerpValue(this Vector4 v4, Vector4 startVector4, Vector4 currVector4, Vector4 endVector4, float guideDistance, float guideTime, unitOfTime UOT_GD, updateLocation UL)
+    {
+        return lerpHelper.calcLerpValue(startVector4, currVector4, endVector4, guideDistance, guideTime, UOT_GD, UL);
+    }
+
+    public static float calcLerpValue(this float[] fa, float[] startValues, float[] currValues, float[] endValues, float guideDistance, float guideTime, unitOfTime UOT_GD, updateLocation UL)
+    {
+        return lerpHelper.calcLerpValue(startValues, currValues, endValues, guideDistance, guideTime, UOT_GD, UL);
+    }
+
+    public static float calcLerpValue(this Color c, Color startColor, Color currColor, Color endColor, float guideDistance, float guideTime, unitOfTime UOT_GD, updateLocation UL)
+    {
+        return lerpHelper.calcLerpValue(startColor, currColor, endColor, guideDistance, guideTime, UOT_GD, UL);
+    }
+
+    #endregion
+
+    public static float distance(this Color c, Color color1, Color color2)
+    {
+        return lerpHelper.distance(color1, color2);
+    }
 
     //-----FUNCTION VERSIONS that use the instance of whatever type they extend (the instance will be of the same type as the first parameter)
 
@@ -130,33 +150,9 @@ public static class lerpEXT{
         return lerpHelper.calcGuideDistance(startValues, currValues, endValues, GD);
     }
 
-    #endregion
-
-    #region Calculate Lerp Value (with Distance, Time, Unit of Time, and Update Location)
-
-    public static float calcLerpValue(this float startValue, float currValue, float endValue, float guideDistance, float guideTime, unitOfTime UOT_GD, updateLocation UL)
+    public static float calcGuideDistance(this Color startColor, Color currColor, Color endColor, guideDistance GD)
     {
-        return lerpHelper.calcLerpValue(startValue, currValue, endValue, guideDistance, guideTime, UOT_GD, UL);
-    }
-
-    public static float calcLerpValue(this Vector2 startVector2, Vector2 currVector2, Vector2 endVector2, float guideDistance, float guideTime, unitOfTime UOT_GD, updateLocation UL)
-    {
-        return lerpHelper.calcLerpValue(startVector2, currVector2, endVector2, guideDistance, guideTime, UOT_GD, UL);
-    }
-
-    public static float calcLerpValue(this Vector3 startVector3, Vector3 currVector3, Vector3 endVector3, float guideDistance, float guideTime, unitOfTime UOT_GD, updateLocation UL)
-    {
-        return lerpHelper.calcLerpValue(startVector3, currVector3, endVector3, guideDistance, guideTime, UOT_GD, UL);
-    }
-
-    public static float calcLerpValue(this Vector4 startVector4, Vector4 currVector4, Vector4 endVector4, float guideDistance, float guideTime, unitOfTime UOT_GD, updateLocation UL)
-    {
-        return lerpHelper.calcLerpValue(startVector4, currVector4, endVector4, guideDistance, guideTime, UOT_GD, UL);
-    }
-
-    public static float calcLerpValue(this float[] startValues, float[] currValues, float[] endValues, float guideDistance, float guideTime, unitOfTime UOT_GD, updateLocation UL)
-    {
-        return lerpHelper.calcLerpValue(startValues, currValues, endValues, guideDistance, guideTime, UOT_GD, UL);
+        return lerpHelper.calcGuideDistance(startColor, currColor, endColor, GD);
     }
 
     #endregion
@@ -188,5 +184,49 @@ public static class lerpEXT{
         return lerpHelper.calcLerpValue(startValues, currValues, endValues, lerpVelocity_DperF);
     }
 
+    public static float calcLerpValue(this Color startColor, Color currColor, Color endColor, float lerpVelocity_DperF)
+    {
+        return lerpHelper.calcLerpValue(startColor, currColor, endColor, lerpVelocity_DperF);
+    }
+
     #endregion
+
+    #region Calculate Lerp Value (with Distance, Time, Unit of Time, and Update Location)
+
+    public static float calcLerpValue(this float startValue, float currValue, float endValue, float guideDistance, float guideTime, unitOfTime UOT_GD, updateLocation UL)
+    {
+        return lerpHelper.calcLerpValue(startValue, currValue, endValue, guideDistance, guideTime, UOT_GD, UL);
+    }
+
+    public static float calcLerpValue(this Vector2 startVector2, Vector2 currVector2, Vector2 endVector2, float guideDistance, float guideTime, unitOfTime UOT_GD, updateLocation UL)
+    {
+        return lerpHelper.calcLerpValue(startVector2, currVector2, endVector2, guideDistance, guideTime, UOT_GD, UL);
+    }
+
+    public static float calcLerpValue(this Vector3 startVector3, Vector3 currVector3, Vector3 endVector3, float guideDistance, float guideTime, unitOfTime UOT_GD, updateLocation UL)
+    {
+        return lerpHelper.calcLerpValue(startVector3, currVector3, endVector3, guideDistance, guideTime, UOT_GD, UL);
+    }
+
+    public static float calcLerpValue(this Vector4 startVector4, Vector4 currVector4, Vector4 endVector4, float guideDistance, float guideTime, unitOfTime UOT_GD, updateLocation UL)
+    {
+        return lerpHelper.calcLerpValue(startVector4, currVector4, endVector4, guideDistance, guideTime, UOT_GD, UL);
+    }
+
+    public static float calcLerpValue(this float[] startValues, float[] currValues, float[] endValues, float guideDistance, float guideTime, unitOfTime UOT_GD, updateLocation UL)
+    {
+        return lerpHelper.calcLerpValue(startValues, currValues, endValues, guideDistance, guideTime, UOT_GD, UL);
+    }
+
+    public static float calcLerpValue(this Color startColor, Color currColor, Color endColor, float guideDistance, float guideTime, unitOfTime UOT_GD, updateLocation UL)
+    {
+        return lerpHelper.calcLerpValue(startColor, currColor, endColor, guideDistance, guideTime, UOT_GD, UL);
+    }
+
+    #endregion
+
+    public static float distance(this Color color1, Color color2)
+    {
+        return lerpHelper.distance(color1, color2);
+    }
 }

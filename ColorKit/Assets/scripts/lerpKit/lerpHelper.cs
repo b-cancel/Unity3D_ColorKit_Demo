@@ -4,33 +4,6 @@ using UnityEngine;
 
 namespace lerpKit
 {
-    /*
-         * you can make your lerping not frame rate dependant by using the following code in Update
-         *      value = Mathf.Lerp(value, 10f, .5f * Time.deltaTime)
-         * or in Fixed Update by using
-         *      value = Mathf.Lerp(value, 10f, .5f * Time.fixedDeltaTime)
-         * BUT... you still will not know how long the linear interpolation will take
-         * 
-         * you might want it take a particular quantity of FRAME -or- SECONDS 
-         * 
-         * To caculate the lerpValue of any linear interpolation we need to know
-         * 1. how far along the lerp we are (start, end, curr) --> aka predict our next location
-         * 2. how what our lerp velocity is
-         *      * using
-         * 3. where we are lerping (updateLocation)
-         * 
-         * ALL UNITY LERP FUNCTIONS
-         * Mathf.Lerp //1 D
-         * Vector2.Lerp //2 D
-         * Vector3.Lerp //3 D
-         * Vector4.Lerp //4 D
-         * 
-         * To Finish LINEARLY Interpolating within a particular time frame
-         * you need to initially calculate a lerpVelocity
-         * then you need to calculate a lerpValue based on your lerpVelocity and how much distance you have yet to travel
-         * NOTE: the unity for the velocity is... DISTANCE PER FRAMES
-        */
-
     public static class lerpHelper
     {
 
@@ -96,19 +69,20 @@ namespace lerpKit
                 return euclideanDistance(currValues, endValues);
         }
 
-        //-------------------------CALCULATE LERP VELOCITY-------------------------
-
-        static float calcLerpVelocity(float guideDistance, float timeToTravel_GD, unitOfTime UOT_GD, updateLocation UL)
+        public static float calcGuideDistance(Color startColor, Color currColor, Color endColor, guideDistance GD)
         {
-            return calcLerpVelocity(guideDistance, timeToFrames(timeToTravel_GD, UOT_GD, UL));
+
+            if (GD == guideDistance.distBetween_StartAndCurr)
+                return distance(startColor, currColor);
+            else if (GD == guideDistance.distBetween_StartAndEnd)
+                return distance(startColor, endColor);
+            else if (GD == guideDistance.distBetween_CurrAndEnd)
+                return distance(currColor, endColor);
+            else
+                return 441.672956f; // maxDistanceInRGBColorSpace
         }
 
-        static float calcLerpVelocity(float guideDistance, float framesToTravel_GD)
-        {
-            return guideDistance / framesToTravel_GD;
-        }
-
-        //-------------------------CALCULATE LERP VALUE (with Distance, Time, Unit of Time, and Update Location)-------------------------
+        //-------------------------CALCULATE LERP VALUE (using Guide Distance, Guide Time, Unit of Time, and Update Location)-------------------------
 
         public static float calcLerpValue(float startValue, float currValue, float endValue, float guideDistance, float guideTime, unitOfTime UOT_GD, updateLocation UL)
         {
@@ -135,7 +109,12 @@ namespace lerpKit
             return calcLerpValue(startValues, currValues, endValues, calcLerpVelocity(guideDistance, guideTime, UOT_GD, UL));
         }
 
-        //-------------------------CALCULATE LERP VALUE (with Velocity)-------------------------
+        public static float calcLerpValue(Color startColor, Color currColor, Color endColor, float guideDistance, float guideTime, unitOfTime UOT_GD, updateLocation UL)
+        {
+            return calcLerpValue(startColor, currColor, endColor, calcLerpVelocity(guideDistance, guideTime, UOT_GD, UL));
+        }
+
+        //-------------------------CALCULATE LERP VALUE (using Guide Velocity)-------------------------
 
         public static float calcLerpValue(float startValue, float currValue, float endValue, float lerpVelocity_DperF)
         {
@@ -182,7 +161,26 @@ namespace lerpKit
             return Mathf.Clamp((lerpVelocity_DperF / distToFinish), 0, 1);
         }
 
+        public static float calcLerpValue(Color startColor, Color currColor, Color endColor, float lerpVelocity_DperF)
+        {
+            //---calc distance left to travel
+            float distToFinish = distance(currColor, endColor);
+
+            //--- calc lerp value based on this
+            return Mathf.Clamp((lerpVelocity_DperF / distToFinish), 0, 1);
+        }
+
         //-------------------------HELPER FUNCTIONS-------------------------
+
+        static float calcLerpVelocity(float guideDistance, float timeToTravel_GD, unitOfTime UOT_GD, updateLocation UL)
+        {
+            return calcLerpVelocity(guideDistance, timeToFrames(timeToTravel_GD, UOT_GD, UL));
+        }
+
+        static float calcLerpVelocity(float guideDistance, float framesToTravel_GD)
+        {
+            return guideDistance / framesToTravel_GD;
+        }
 
         static float timeToFrames(float time, unitOfTime UOT, updateLocation UL)
         {
@@ -211,6 +209,49 @@ namespace lerpKit
             }
             else
                 return -1;
+        }
+
+        //-------------------------HELPER FUNCTIONS IN OTHER APIs I HAVE WRITTEN-------------------------
+
+        public static float distance(Color color1, Color color2) //found in colorKit, colorDistances class [THIS IS MODIFIED]
+        {
+            float[] color1_Float_rGb = color_to_array(color1); 
+            float[] color1_255_rGb = _float_to_255(color1_Float_rGb);
+
+            float[] color2_Float_rGb = color_to_array(color2);
+            float[] color2_255_rGb = _float_to_255(color2_Float_rGb);
+
+            return distance(color1_255_rGb, color2_255_rGb);
+        }
+
+        static float distance(float[] color1, float[] color2) //found in colorKit, colorDistances class [THIS IS MODIFIED]
+        {
+            Vector3 color1Vect3 = array_to_vector3(color1);
+            Vector3 color2Vect3 = array_to_vector3(color2);
+            return Vector3.Distance(color1Vect3, color2Vect3);
+        }
+
+        public static Vector3 array_to_vector3(float[] array) //found in extraKit, formatConversion class [THIS IS MODIFIED]
+        {
+                return new Vector3(array[0], array[1], array[2]);
+        }
+
+        static float[] color_to_array(Color color) //found in extraKit, formatConversion class
+        {
+            return new float[] { color.r, color.g, color.b };
+        }
+
+        static float[] _float_to_255(float[] colorFloat) //found in extraKit, formatConversion class
+        {
+            float[] color255 = new float[colorFloat.Length];
+            for (int i = 0; i < color255.Length; i++)
+                color255[i] = _float_to_255(colorFloat[i]);
+            return color255;
+        }
+
+        static float _float_to_255(float numFloat) //found in extraKit, formatConversion class
+        {
+            return Mathf.Clamp(numFloat * 255, 0, 255);
         }
     }
 }
