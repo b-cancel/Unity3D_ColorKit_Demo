@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace extraKit
+namespace colorKit
 {
-    public static class otherOps
+    public static class colorOtherOps
     {
         //-------------------------Print Functions-------------------------
 
@@ -17,7 +17,7 @@ namespace extraKit
 
         public static void print(Vector4 vect4, string printLabel)
         {
-            print(typeConversion.vector4_to_array(vect4), printLabel);
+            print(colorTypeConversion.vector4_to_array(vect4), printLabel);
         }
 
         //---3 component
@@ -29,7 +29,7 @@ namespace extraKit
 
         public static void print(Vector3 vect3, string printLabel)
         {
-            print(typeConversion.vector3_to_array(vect3), printLabel);
+            print(colorTypeConversion.vector3_to_array(vect3), printLabel);
         }
 
         public static void print(Color color)
@@ -39,7 +39,7 @@ namespace extraKit
 
         public static void print(Color color, string printLabel)
         {
-            print(typeConversion.color_to_array(color), printLabel);
+            print(colorTypeConversion.color_to_array(color), printLabel);
         }
 
         //---2 component
@@ -51,10 +51,15 @@ namespace extraKit
 
         public static void print(Vector2 vect2, string printLabel)
         {
-            print(typeConversion.vector2_to_array(vect2), printLabel);
+            print(colorTypeConversion.vector2_to_array(vect2), printLabel);
         }
 
         //-----BASE
+
+        public static void print(float[] array)
+        {
+            print(array, "");
+        }
 
         public static void print(float[] array, string printLabel)
         {
@@ -77,11 +82,14 @@ namespace extraKit
         {
             for (int i = 0; i < array.Length; i++)
             {
-                array[i] = 0;
-                if (float.IsNaN(array[i]))
-                    UnityEngine.MonoBehaviour.print("is NAN");
-                else if (float.IsInfinity(array[i]))
-                    UnityEngine.MonoBehaviour.print("is Inf or Neg Inf");
+                if(float.IsNaN(array[i]) || float.IsInfinity(array[i]))
+                {
+                    array[i] = 0;
+                    if (float.IsNaN(array[i]))
+                        UnityEngine.MonoBehaviour.print("is NAN");
+                    else if (float.IsInfinity(array[i]))
+                        UnityEngine.MonoBehaviour.print("is Inf or Neg Inf");
+                }
             }
 
             return array;

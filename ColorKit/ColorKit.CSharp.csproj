@@ -321,16 +321,15 @@
     <Compile Include="Assets\scripts\colorKit\colorCompliments.cs" />
     <Compile Include="Assets\scripts\colorKit\colorDistances.cs" />
     <Compile Include="Assets\scripts\colorKit\colorEXT.cs" />
+    <Compile Include="Assets\scripts\colorKit\colorFormatConversion.cs" />
     <Compile Include="Assets\scripts\colorKit\colorLerpHelper.cs" />
     <Compile Include="Assets\scripts\colorKit\colorLerping.cs" />
     <Compile Include="Assets\scripts\colorKit\colorMixing.cs" />
+    <Compile Include="Assets\scripts\colorKit\colorOtherOps.cs" />
+    <Compile Include="Assets\scripts\colorKit\colorTypeConversion.cs" />
     <Compile Include="Assets\scripts\colorKit\mixingMethods.cs" />
     <Compile Include="Assets\scripts\colorKit\rgb2cmyk_cmyk2rgb.cs" />
     <Compile Include="Assets\scripts\colorKit\rgb2ryb_ryb2rgb.cs" />
-    <Compile Include="Assets\scripts\extraKit\extraEXT.cs" />
-    <Compile Include="Assets\scripts\extraKit\formatConversion.cs" />
-    <Compile Include="Assets\scripts\extraKit\otherOps.cs" />
-    <Compile Include="Assets\scripts\extraKit\typeConversion.cs" />
     <Compile Include="Assets\scripts\lerpKit\lerpEXT.cs" />
     <Compile Include="Assets\scripts\lerpKit\lerpHelper.cs" />
   </ItemGroup>

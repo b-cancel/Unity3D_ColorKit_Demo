@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using colorKit;
-using extraKit;
 
 [ExecuteInEditMode]
 public class thickRefs : MonoBehaviour {
@@ -18,8 +17,8 @@ public class thickRefs : MonoBehaviour {
     {
         colorSample.GetComponent<Image>().color = newColor;
 
-        float[] rgbFloat = typeConversion.color_to_array(newColor);
-        float[] rgb255 = formatConversion._float_to_255(rgbFloat);
+        float[] rgbFloat = colorTypeConversion.color_to_array(newColor);
+        float[] rgb255 = colorFormatConversion._float_to_255(rgbFloat);
         float[] ryb255 = rgb2ryb_ryb2rgb.rgb255_to_ryb255(rgb255);
         float[] cmyk255 = rgb2cmyk_cmyk2rgb.rgb255_to_cmyk255(rgb255);
 

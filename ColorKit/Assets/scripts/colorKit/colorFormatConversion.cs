@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace extraKit
+namespace colorKit
 {
     //Description: Change the Color's(Array's) Format (255,float,hex)
 
-    public static class formatConversion
+    public static class colorFormatConversion
     {
         public static float[] _float_to_255(float[] colorFloat)
         {
@@ -59,34 +59,34 @@ namespace extraKit
 
         //-------------------------helpers of the functions above-------------------------
 
-        public static float _float_to_255(float numFloat)
+        static float _float_to_255(float numFloat)
         {
             return Mathf.Clamp(numFloat * 255, 0, 255);
         }
 
-        public static string _float_to_hex(float numFloat)
+        static string _float_to_hex(float numFloat)
         {
             string hex = Convert.ToString((int)Mathf.Round(255 * numFloat), 16);
             return (hex.Length == 1) ? "0" + hex : hex;
         }
 
-        public static float _255_to_float(float num255)
+        static float _255_to_float(float num255)
         {
             return Mathf.Clamp(num255 / 255, 0, 1);
         }
 
-        public static string _255_to_hex(float num255)
+        static string _255_to_hex(float num255)
         {
             string hex = Convert.ToString((int)Mathf.Round(num255), 16);
             return (hex.Length == 1) ? "0" + hex : hex;
         }
 
-        public static float _hex_to_float(string numHex)
+        static float _hex_to_float(string numHex)
         {
             return Mathf.Clamp(Mathf.Clamp(Convert.ToInt32(numHex, 16), 0, 255) / 255, 0, 1);
         }
 
-        public static float _hex_to_255(string numHex)
+        static float _hex_to_255(string numHex)
         {
             return Mathf.Clamp(Convert.ToInt32(numHex, 16), 0, 255);
         }

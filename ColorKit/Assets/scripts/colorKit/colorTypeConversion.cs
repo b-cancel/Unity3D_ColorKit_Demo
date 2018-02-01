@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace extraKit
+namespace colorKit
 {
     //Description: Change the Color's Data Type (Vectors, Arrays, Colors)
 
-    public static class typeConversion
+    public static class colorTypeConversion
     {
         //-----2 component ??? (Vector2 | Array)
 

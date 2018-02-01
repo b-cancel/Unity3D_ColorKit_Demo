@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using extraKit;
 
 namespace colorKit
 {
@@ -35,52 +34,52 @@ namespace colorKit
         //NOTE: this works exaclty the same as Color.Lerp()
         static Color colorLerp_inRGB_colorSpace(Color start, Color end, float lerpValue) //value between 0 and 1
         {
-            float[] startFloat_rGb = typeConversion.color_to_array(start);
-            float[] start255_rGb = formatConversion._float_to_255(startFloat_rGb);
+            float[] startFloat_rGb = colorTypeConversion.color_to_array(start);
+            float[] start255_rGb = colorFormatConversion._float_to_255(startFloat_rGb);
 
-            float[] endFloat_rGb = typeConversion.color_to_array(end);
-            float[] end255_rGb = formatConversion._float_to_255(endFloat_rGb);
+            float[] endFloat_rGb = colorTypeConversion.color_to_array(end);
+            float[] end255_rGb = colorFormatConversion._float_to_255(endFloat_rGb);
 
             float[] result255_rGb = colorLerp(start255_rGb, end255_rGb, lerpValue);
-            float[] resultFloat = formatConversion._255_to_float(result255_rGb);
+            float[] resultFloat = colorFormatConversion._255_to_float(result255_rGb);
 
-            return typeConversion.array_to_color(resultFloat);
+            return colorTypeConversion.array_to_color(resultFloat);
         }
 
         static Color colorLerp_inRYB_colorSpace(Color start, Color end, float lerpValue) //value between 0 and 1
         {
-            float[] startFloat_rGb = typeConversion.color_to_array(start);
-            float[] start255_rGb = formatConversion._float_to_255(startFloat_rGb);
+            float[] startFloat_rGb = colorTypeConversion.color_to_array(start);
+            float[] start255_rGb = colorFormatConversion._float_to_255(startFloat_rGb);
             float[] start255_rYb = rgb2ryb_ryb2rgb.rgb255_to_ryb255(start255_rGb);
 
-            float[] endFloat_rGb = typeConversion.color_to_array(end);
-            float[] end255_rGb = formatConversion._float_to_255(endFloat_rGb);
+            float[] endFloat_rGb = colorTypeConversion.color_to_array(end);
+            float[] end255_rGb = colorFormatConversion._float_to_255(endFloat_rGb);
             float[] end255_rYb = rgb2ryb_ryb2rgb.rgb255_to_ryb255(end255_rGb);
 
             float[] result255_rYb = colorLerp(start255_rYb, end255_rYb, lerpValue);
 
             float[] result255_rGb = rgb2ryb_ryb2rgb.ryb255_to_rgb255(result255_rYb); //255 rgb
-            float[] resultFloat = formatConversion._255_to_float(result255_rGb);
+            float[] resultFloat = colorFormatConversion._255_to_float(result255_rGb);
 
-            return typeConversion.array_to_color(resultFloat);
+            return colorTypeConversion.array_to_color(resultFloat);
         }
 
         static Color colorLerp_inCMYK_colorSpace(Color start, Color end, float lerpValue) //value between 0 and 1
         {
-            float[] startFloat_rGb = typeConversion.color_to_array(start);
-            float[] start255_rGb = formatConversion._float_to_255(startFloat_rGb);
+            float[] startFloat_rGb = colorTypeConversion.color_to_array(start);
+            float[] start255_rGb = colorFormatConversion._float_to_255(startFloat_rGb);
             float[] start255_CMYK = rgb2cmyk_cmyk2rgb.rgb255_to_cmyk255(start255_rGb);
 
-            float[] endFloat_rGb = typeConversion.color_to_array(end);
-            float[] end255_rGb = formatConversion._float_to_255(endFloat_rGb);
+            float[] endFloat_rGb = colorTypeConversion.color_to_array(end);
+            float[] end255_rGb = colorFormatConversion._float_to_255(endFloat_rGb);
             float[] end255_CMYK = rgb2cmyk_cmyk2rgb.rgb255_to_cmyk255(end255_rGb);
 
             float[] result255_CMYK = colorLerp(start255_CMYK, end255_CMYK, lerpValue);
 
             float[] result255_rGb = rgb2cmyk_cmyk2rgb.cmyk255_to_rgb255(result255_CMYK); //255 rgb
-            float[] resultFloat = formatConversion._255_to_float(result255_rGb);
+            float[] resultFloat = colorFormatConversion._255_to_float(result255_rGb);
 
-            return typeConversion.array_to_color(resultFloat);
+            return colorTypeConversion.array_to_color(resultFloat);
         }
 
         //-----BASE
@@ -93,21 +92,21 @@ namespace colorKit
 
                 if (start.Length == 3)
                 {
-                    Vector3 startVect = typeConversion.array_to_vector3(start);
-                    Vector3 endVect = typeConversion.array_to_vector3(end);
+                    Vector3 startVect = colorTypeConversion.array_to_vector3(start);
+                    Vector3 endVect = colorTypeConversion.array_to_vector3(end);
 
                     Vector3 resultVect = Vector3.Lerp(startVect, endVect, lerpValue);
 
-                    return typeConversion.vector3_to_array(resultVect);
+                    return colorTypeConversion.vector3_to_array(resultVect);
                 }
                 else if (start.Length == 4)
                 {
-                    Vector4 startVect = typeConversion.array_to_vector4(start);
-                    Vector4 endVect = typeConversion.array_to_vector4(end);
+                    Vector4 startVect = colorTypeConversion.array_to_vector4(start);
+                    Vector4 endVect = colorTypeConversion.array_to_vector4(end);
 
                     Vector4 resultVect = Vector4.Lerp(startVect, endVect, lerpValue);
 
-                    return typeConversion.vector4_to_array(resultVect);
+                    return colorTypeConversion.vector4_to_array(resultVect);
                 }
                 else
                     return start;
