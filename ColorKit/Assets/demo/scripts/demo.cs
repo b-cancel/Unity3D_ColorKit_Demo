@@ -30,12 +30,13 @@ public class demo : MonoBehaviour {
 
         //---starter colors list
 
-        gameObject.GetComponent<demo_colors>().addColor(colorTypeConversion.array_to_color(colorFormatConversion._255_to_float(new float[] { 255, 0, 0 })), 1.25f);
         gameObject.GetComponent<demo_colors>().addColor(colorTypeConversion.array_to_color(colorFormatConversion._255_to_float(new float[] { 255, 255, 0 })), 1.25f);
+        gameObject.GetComponent<demo_colors>().addColor(colorTypeConversion.array_to_color(colorFormatConversion._255_to_float(new float[] { 0, 0, 255 })), 1.25f);
 
         //---starter mixtures list
 
         gameObject.GetComponent<demo_mixtures>().addMixture(desiredMixtureType.additive, false, colorSpace.RGB, mixingMethod.colorAveraging);
+        gameObject.GetComponent<demo_mixtures>().addMixture(desiredMixtureType.additive, false, colorSpace.RYB, mixingMethod.spaceAveraging);
         gameObject.GetComponent<demo_mixtures>().addMixture(desiredMixtureType.subtractive, false, colorSpace.RYB, mixingMethod.colorComponentAveraging);
 
         //---start lerping because your know that your values are what they should be
