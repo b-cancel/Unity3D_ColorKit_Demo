@@ -4,6 +4,8 @@ This Library was created to allow people to 1. Linearly Interpolate between colo
 The currently supported color spaces include RGB, RYB, and CMYK.
 The Document links below explain how the Library works in more detail.
 
+INCLUDES DEMO CODE
+
 LIVE DEMO -> https://b-cancel.github.io/Unity3D_ColorKit_Demo/
 
 READ ME -> https://docs.google.com/document/d/1f_VbTq54hGxpCVwYvniQZsFXT2Ckv-nKtuoFI-sXfSA/edit?usp=sharing
