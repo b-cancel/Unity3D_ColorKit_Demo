@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2015
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColorKit.CSharp", "ColorKit.CSharp.csproj", "{BD4BFBB2-BF8F-026D-7E0A-8711C68441F3}"
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColorKit", "Assembly-CSharp.csproj", "{23BA7135-0BC7-7C44-CD70-490CD887C17A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +9,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BD4BFBB2-BF8F-026D-7E0A-8711C68441F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BD4BFBB2-BF8F-026D-7E0A-8711C68441F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BD4BFBB2-BF8F-026D-7E0A-8711C68441F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BD4BFBB2-BF8F-026D-7E0A-8711C68441F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23BA7135-0BC7-7C44-CD70-490CD887C17A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23BA7135-0BC7-7C44-CD70-490CD887C17A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23BA7135-0BC7-7C44-CD70-490CD887C17A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23BA7135-0BC7-7C44-CD70-490CD887C17A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

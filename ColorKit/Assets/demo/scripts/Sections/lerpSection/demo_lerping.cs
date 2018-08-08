@@ -203,7 +203,7 @@ public class demo_lerping : MonoBehaviour
             guideDistRGB, 
             timeToLerpDistance,
             (timeTypeSecond) ? unitOfTime.seconds : unitOfTime.frames,
-            (fixedUpdateLerp) ? updateLocation.fixedUpdate : updateLocation.Update,
+            (fixedUpdateLerp) ? updateLocation.fixedUpdate : updateLocation.update,
             colorSpace.RGB
             );
 
@@ -216,7 +216,7 @@ public class demo_lerping : MonoBehaviour
             guideDistRYB, //calculate guide distance [(largestDistanceLerp) ? guideDistance.distBetween_Other : guideDistance.distBetween_StartAndEnd]
             timeToLerpDistance,
             (timeTypeSecond) ? unitOfTime.seconds : unitOfTime.frames,
-            (fixedUpdateLerp) ? updateLocation.fixedUpdate : updateLocation.Update,
+            (fixedUpdateLerp) ? updateLocation.fixedUpdate : updateLocation.update,
             colorSpace.RYB
             );
 
@@ -229,7 +229,7 @@ public class demo_lerping : MonoBehaviour
             guideDistCMYK, //calculate guide distance [(largestDistanceLerp) ? guideDistance.distBetween_Other : guideDistance.distBetween_StartAndEnd]
             timeToLerpDistance,
             (timeTypeSecond) ? unitOfTime.seconds : unitOfTime.frames,
-            (fixedUpdateLerp) ? updateLocation.fixedUpdate : updateLocation.Update,
+            (fixedUpdateLerp) ? updateLocation.fixedUpdate : updateLocation.update,
             colorSpace.CMYK
             );
 
